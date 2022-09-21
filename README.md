@@ -1,4 +1,4 @@
-# Sellverse
+# Welcome to Sellverse universe :D
 
 Team members
 ------
