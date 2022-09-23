@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_icon"
+        android:icon="@drawable/btn_home"
+        android:title="@string/home_icon"></item>
+    <item android:id= "@+id/bids_icon"
+        android:title="@string/bids_icon"
+        android:icon="@drawable/btn_hummer"></item>
+
+    <item android:id= "@+id/add_icon"
+        android:title="@string/add_icon"
+        android:icon="@drawable/btn_add"></item>
+
+    <item android:id= "@+id/chat_icon"
+        android:title="@string/chat_icon"
+        android:icon="@drawable/btn_message"></item>
+
+    <item android:id= "@+id/profile_icon"
+        android:title="@string/profile_icon"
+        android:icon="@drawable/btn_profile"></item>
+</menu>
