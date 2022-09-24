@@ -1,4 +1,5 @@
 # Welcome to Sellverse universe :D
+![logo](https://user-images.githubusercontent.com/90696985/192112119-d3ca27a6-ca50-4172-9ba9-810e47e1f6e4.png)
 
 Team members
 ------
