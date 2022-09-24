@@ -7,4 +7,7 @@
     <string name="chat_icon">Chat</string>
     <string name="profile_icon">Profile</string>
     <string name="add_icon">Add</string>
+    <string name="content_description_image">Image</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
 </resources>
