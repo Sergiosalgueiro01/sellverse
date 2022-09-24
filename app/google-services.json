@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "734886019386",
+    "project_id": "sellverse-22a2a",
+    "storage_bucket": "sellverse-22a2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734886019386:android:c2f48aa3a8bd411cc69003",
+        "android_client_info": {
+          "package_name": "com.main.es.sellverse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734886019386-0ju7pv4heg1qn3uisrv8pu7gcfe2s86b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_mOk2PRzRA8ymp_TV5qQMW_kyMvYGUWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734886019386-0ju7pv4heg1qn3uisrv8pu7gcfe2s86b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
