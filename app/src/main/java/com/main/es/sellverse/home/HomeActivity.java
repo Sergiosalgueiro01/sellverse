@@ -20,6 +20,7 @@ public class HomeActivity extends AppCompatActivity {
     private Fragment chatFragment = new ChatFragment();
     private Fragment yourBidsFragment = new YourBidsFragment();
 
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
