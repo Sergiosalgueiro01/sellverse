@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.main.es.sellverse.home.HomeActivity;
-
+import com.main.es.sellverse.login.LoginActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openNextActivity() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
