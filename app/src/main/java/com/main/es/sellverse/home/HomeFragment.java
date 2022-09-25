@@ -46,8 +46,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpGrid(){
-        System.out.println("por aqui pasa bbb");
-
 
         String[] auctionData = {"Rose","Lotus","Lily","Jasmine",
                 "Tulip","Orchid","Levender","RoseMarry","Sunflower","Carnation", "Sunflower","Carnation", "Sunflower","Carnation"};

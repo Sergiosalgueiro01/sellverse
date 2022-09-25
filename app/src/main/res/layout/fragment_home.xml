@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/imgBtSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:src="@android:drawable/ic_menu_search" />
 
@@ -30,15 +30,18 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="Buscar" />
+            android:text="@string/txSearch" />
 
         <Button
-            android:id="@+id/btFilter"
+            android:id="@+id/btnStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Filtrar"
-            android:background="@color/light_orange"/>
+            android:text="@string/btFilter"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +58,7 @@
             android:id="@+id/gridViewCatalog"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:numColumns="2"
+            android:numColumns="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

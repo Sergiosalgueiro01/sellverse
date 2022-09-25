@@ -10,4 +10,8 @@
     <string name="content_description_image">Image</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="btFilter">Filters</string>
+    <string name="txSearch">Search</string>
+    <string name="lbTime">Remaining time:</string>
+    <string name="lbPrice">Current price:</string>
 </resources>
