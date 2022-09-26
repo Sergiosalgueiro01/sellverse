@@ -10,8 +10,15 @@
     <string name="content_description_image">Image</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="price">Initial Price</string>
     <string name="btnRegister">Register</string>
     <string name="btnLogin">Log In</string>
     <string name="txtEmail">Email</string>
     <string name="txtPassword">Password</string>
+    <string name="coin">Coin</string>
+    <string-array name="coins">
+        <item>€</item>
+        <item>$</item>
+        <item>£</item>
+    </string-array>
 </resources>
