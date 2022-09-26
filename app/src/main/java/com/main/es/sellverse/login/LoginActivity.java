@@ -1,12 +1,15 @@
 package com.main.es.sellverse.login;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,7 +38,75 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        setUpRegisterEmailPaswword();
+        setUpLoginEmailPaswword();
         setUpGoogleButton();
+    }
+
+    private void setUpRegisterEmailPaswword(){
+        Button btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signUpEmailPassword();
+            }
+        });
+    }
+
+    private void setUpLoginEmailPaswword(){
+        Button btnLogin = findViewById(R.id.btnLogin);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signInEmailPassword();
+            }
+        });
+    }
+
+    private void signUpEmailPassword(){
+        TextView txtEmail = findViewById(R.id.txtEmail);
+        TextView txtPasword = findViewById(R.id.txtPassword);
+        if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()){
+            FirebaseAuth.getInstance().createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPasword.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                FirebaseUser user = myAuth.getCurrentUser();
+                                updateUI(user);
+                            } else {
+                                showAlert();
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void signInEmailPassword(){
+        TextView txtEmail = findViewById(R.id.txtEmail);
+        TextView txtPasword = findViewById(R.id.txtPassword);
+        if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()){
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(txtEmail.getText().toString(), txtPasword.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                FirebaseUser user = myAuth.getCurrentUser();
+                                updateUI(user);
+                            } else {
+                                showAlert();
+                            }
+                        }
+                    });
+        }
+    }
+
+    private void showAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Error");
+        builder.setMessage("Se ha producido un error al autenticar al usuario");
+        builder.setPositiveButton("Aceptar", null);
+        builder.create().show();
     }
 
     private void setUpGoogleButton() {
@@ -54,6 +125,9 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
         myAuth=FirebaseAuth.getInstance();
     }
+
+
+
     // [START on_start_check_user]
     @Override
     public void onStart() {
