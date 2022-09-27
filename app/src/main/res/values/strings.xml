@@ -14,4 +14,8 @@
     <string name="txSearch">Search</string>
     <string name="lbTime">Remaining time:</string>
     <string name="lbPrice">Current price:</string>
+    <string name="btnRegister">Register</string>
+    <string name="btnLogin">Log In</string>
+    <string name="txtEmail">Email</string>
+    <string name="txtPassword">Password</string>
 </resources>
