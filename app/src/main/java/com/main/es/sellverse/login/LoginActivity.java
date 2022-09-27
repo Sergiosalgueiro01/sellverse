@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,6 +30,7 @@ import com.main.es.sellverse.home.HomeActivity;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth myAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
     private static final int RC_SIGN_IN=9001;
     private GoogleSignInClient mGoogleSignInClient;
     private static final String TAG = "GoogleActivity";
@@ -41,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         setUpRegisterEmailPaswword();
         setUpLoginEmailPaswword();
         setUpGoogleButton();
+
     }
 
     private void setUpRegisterEmailPaswword(){
@@ -73,7 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 FirebaseUser user = myAuth.getCurrentUser();
-                                updateUI(user);
+                                user.sendEmailVerification();
+                                Toast.makeText(LoginActivity.this, "Verifique su correo electrónico", Toast.LENGTH_LONG).show();
                             } else {
                                 showAlert();
                             }
@@ -92,7 +96,12 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                 FirebaseUser user = myAuth.getCurrentUser();
-                                updateUI(user);
+                                if(user.isEmailVerified()) {
+                                    updateUI(user);
+                                }
+                                else{
+                                    Toast.makeText(LoginActivity.this, "Correo electrónico no verificado", Toast.LENGTH_LONG).show();
+                                }
                             } else {
                                 showAlert();
                             }
