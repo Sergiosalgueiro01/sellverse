@@ -30,7 +30,6 @@ import com.main.es.sellverse.home.HomeActivity;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth myAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private static final int RC_SIGN_IN=9001;
     private GoogleSignInClient mGoogleSignInClient;
     private static final String TAG = "GoogleActivity";
@@ -43,17 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         setUpRegisterEmailPaswword();
         setUpLoginEmailPaswword();
         setUpGoogleButton();
-
-    }
-
-    private void setUpRegisterEmailPaswword(){
-        Button btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signUpEmailPassword();
-            }
-        });
     }
 
     private void setUpLoginEmailPaswword(){
@@ -66,24 +54,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void signUpEmailPassword(){
-        TextView txtEmail = findViewById(R.id.txtEmail);
-        TextView txtPasword = findViewById(R.id.txtPassword);
-        if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()){
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPasword.getText().toString())
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                FirebaseUser user = myAuth.getCurrentUser();
-                                user.sendEmailVerification();
-                                Toast.makeText(LoginActivity.this, "Verifique su correo electrónico", Toast.LENGTH_LONG).show();
-                            } else {
-                                showAlert();
-                            }
-                        }
-                    });
-        }
+    private void setUpRegisterEmailPaswword(){
+        Button btnRegister = findViewById(R.id.btnCrearCuenta);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void signInEmailPassword(){
@@ -95,13 +74,12 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                FirebaseUser user = myAuth.getCurrentUser();
-                                if(user.isEmailVerified()) {
-                                    updateUI(user);
-                                }
-                                else{
-                                    Toast.makeText(LoginActivity.this, "Correo electrónico no verificado", Toast.LENGTH_LONG).show();
-                                }
+                                    FirebaseUser user = myAuth.getCurrentUser();
+                                    if (user.isEmailVerified()) {
+                                        updateUI(user);
+                                    } else{
+                                        Toast.makeText(LoginActivity.this, "Verifique su correo", Toast.LENGTH_LONG).show();
+                                    }
                             } else {
                                 showAlert();
                             }
@@ -143,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = myAuth.getCurrentUser();
-        if(currentUser !=null)
+        if(currentUser !=null && currentUser.isEmailVerified())
             updateUI(currentUser);
     }
     // [END on_start_check_user]
