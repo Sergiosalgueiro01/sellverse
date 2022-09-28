@@ -21,5 +21,8 @@
     <style name="SplashTheme" parent="Theme.Sellverse.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
+    <style name="Toolbar_add_publication">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
 
 </resources>

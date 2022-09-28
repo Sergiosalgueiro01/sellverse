@@ -10,26 +10,41 @@
 
     >
 
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     >
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/simple_toolbar"
+
+        />
 
 
-    <LinearLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintVertical_bias="0.1"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="130dp"
-            android:layout_height="match_parent">
+            android:id="@+id/constraintLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.1">
 
             <ImageButton
                 android:id="@+id/ibPub1"
@@ -57,8 +72,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="130dp"
-            android:layout_height="match_parent">
+            android:id="@+id/constraintLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
                 android:id="@+id/ibPub2"
@@ -86,8 +108,15 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="130dp"
-            android:layout_height="match_parent">
+            android:id="@+id/constraintLayout3"
+            android:layout_width="wrap_content"
+
+            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
                 android:id="@+id/ibPub3"
@@ -115,22 +144,27 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintTop_toTopOf="@id/linearLayout"
+        app:layout_constraintVertical_bias="0.15">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="130dp"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            app:layout_constraintHorizontal_bias="0.1"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
                 android:id="@+id/ibPub4"
@@ -158,8 +192,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="130dp"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
                 android:id="@+id/ibPub5"
@@ -187,8 +226,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="130dp"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            app:layout_constraintHorizontal_bias="0.9"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
                 android:id="@+id/ibPub6"
@@ -216,21 +260,21 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTitle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="359dp"
-        android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
 
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintVertical_bias="0.067">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietTitle"
@@ -270,33 +314,34 @@
 
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPrice"
-        android:layout_marginTop="30dp"
-        android:minWidth="120dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:minWidth="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilDescription"
-        app:layout_constraintHorizontal_bias="0.1"
-        >
+        app:layout_constraintVertical_bias="0.006">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietPrice"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:hint="@string/price"
-            android:maxLength="15"
             android:inputType="numberDecimal"
+            android:maxLength="15"
             android:textColorHint="#757575"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilSpinner"
+        android:id="@+id/tilCoinSpinner"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
         android:layout_width="166dp"
         android:layout_height="match_parent"
@@ -311,16 +356,145 @@
 
         <AutoCompleteTextView
             android:id="@+id/coinSpinner"
-            android:inputType="none"
-            android:backgroundTint="@color/white"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           />
+
+            android:backgroundTint="@color/white"
+            android:inputType="none"
+            android:textColorHint="#757575" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <EditText
+        android:id="@+id/etProgramAuction"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="36dp"
+        android:autofillHints=""
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/program_auction"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.432"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilPrice"
+        tools:ignore="SpUsage" />
+
+    <EditText
+        android:id="@+id/etDuration"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:autofillHints=""
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/select_auction_duration"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDay"
+        tools:ignore="SpUsage" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="228dp"
+
+        android:layout_height="53dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etProgramAuction">
+
+        <RadioButton
+            android:id="@+id/rbNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/now" />
+
+        <RadioButton
+            android:id="@+id/rbPersonalized"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/personalized" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/etTime"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="40dp"
+        android:autofillHints=""
+        android:focusable="false"
+        android:hint="@string/select_the_time"
+        android:inputType="time"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <EditText
+        android:id="@+id/etDay"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:autofillHints=""
+        android:focusable="false"
+        android:hint="@string/select_the_day"
+        android:inputType="time"
+        android:textColorHint="#757575"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTime" />
+
+    <EditText
+        android:id="@+id/tilDaysSpinner"
+        android:layout_width="112dp"
+        android:layout_height="48dp"
+        android:hint="@string/day"
+        android:focusable="false"
+        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etDuration"/>
 
 
+
+    <EditText
+        android:id="@+id/tilHoursSpinner"
+        android:layout_width="112dp"
+        android:layout_height="48dp"
+        android:focusable="false"
+        android:hint="@string/hour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@+id/tilDaysSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/etDuration"/>
+
+    <EditText
+        android:id="@+id/tilMinutesSpinner"
+        android:layout_width="112dp"
+        android:layout_height="48dp"
+        android:focusable="false"
+        android:hint="@string/minutes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toEndOf="@+id/tilHoursSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/etDuration">
+
+
+    </EditText>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
