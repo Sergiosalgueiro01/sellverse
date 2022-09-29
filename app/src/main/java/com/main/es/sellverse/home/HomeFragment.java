@@ -30,6 +30,7 @@ import com.main.es.sellverse.model.GridAdapter;
 import com.main.es.sellverse.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -61,11 +62,10 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
         setUpAuctionCatalog();
-        setUpGrid();
         //utiliza aqui el view hijo puta, no existe en fragmentos el findviewById pero puedes hacer el view.findViewbyId
     }
 
-    private void setUpGrid(){
+    private void setUpGrid(List<Auction> auctions){
 
         String[] auctionData = {"Rose","Lotus","Lily","Jasmine",
                 "Tulip","Orchid","Levender","RoseMarry","Sunflower","Carnation", "Sunflower","Carnation", "Sunflower","Carnation"};
@@ -109,17 +109,16 @@ public class HomeFragment extends Fragment {
                         String token = task.getResult().getToken();
                         Log.i("token",token);
                         AuctionInterface auctionInterface = getAuctionInterface();
-                        Call<List<Object>> call = auctionInterface.getActiveAuctions("Bearer "+token);
-                        call.enqueue(new Callback<List<Object>>() {
+                        Call<List<Auction>> call = auctionInterface.getActiveAuctions("Bearer "+token);
+                        call.enqueue(new Callback<List<Auction>>() {
                             @Override
-                            public void onResponse(Call<List<Object>> call, Response<List<Object>> response) {
+                            public void onResponse(Call<List<Auction>> call, Response<List<Auction>> response) {
 
-                                List<Auction> res = new ArrayList<Auction>();
-                                System.out.println(response.body().toArray()[0]);
-                                // list receibed
+                                List<Auction> res = response.body();
+                                setUpGrid(res);
                             }
                             @Override
-                            public void onFailure(Call<List<Object>> call, Throwable t) {
+                            public void onFailure(Call<List<Auction>> call, Throwable t) {
                                 System.out.println(t.getMessage()); //TODO make failure management
                             }
                         });

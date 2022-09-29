@@ -33,5 +33,20 @@ public class Auction {
         this.imagesUrls = imagesUrls;
         this.bids = bids;
     }
+
+    @Override
+    public String toString() {
+        return "Auction{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", initialPrice=" + initialPrice +
+                ", currentPrice=" + currentPrice +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", imagesUrls=" + imagesUrls +
+                ", bids=" + bids +
+                '}';
+    }
 }
 
