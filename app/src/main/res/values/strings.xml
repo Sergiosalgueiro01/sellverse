@@ -10,11 +10,16 @@
     <string name="content_description_image">Image</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
-    <string name="btnCrearCuenta">No tengo cuenta</string>
-    <string name="btnRegister">Registrar</string>
+    <string name="btnCrearCuenta">I don´t have an account</string>
+    <string name="btnRegister">Register</string>
     <string name="btnLogin">Log In</string>
     <string name="txtEmail">Email</string>
     <string name="txtPassword">Password</string>
-    <string name="txtVerifica">¡Verifique su correo!</string>
-    <string name="btnVerificado">Está verificado</string>
+    <string name="txtVerifica">Verify your email!</string>
+    <string name="btnVerificado">You are verified</string>
+    <string name="txtPhoneNumber">Phone Number</string>
+    <string name="txtUsername">Username</string>
+    <string name="btnResetPassword">Forgot your password?</string>
+    <string name="btnResetPsw">Reset password</string>
+
 </resources>

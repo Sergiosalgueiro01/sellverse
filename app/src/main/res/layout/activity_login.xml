@@ -6,17 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".login.LoginActivity">
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@color/purple_500" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="#d8000000"
+        android:background="@drawable/bg_color"
         android:gravity="center"
         android:layout_height="match_parent">
 
@@ -48,8 +41,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:autofillHints="" />
 
-
-
                 <EditText
                     android:id="@+id/txtPassword"
                     android:layout_width="match_parent"
@@ -69,10 +60,26 @@
                     android:autofillHints="" />
 
                 <Button
+                    android:id="@+id/btnResetPsw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:backgroundTint="#00000000"
+                    android:text="@string/btnResetPassword"
+                    android:elevation="5dp"
+                    android:layout_marginBottom="30dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/teal_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+                    tools:ignore="TextContrastCheck" />
+
+                <Button
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="20dp"
                     android:backgroundTint="@color/teal_200"
