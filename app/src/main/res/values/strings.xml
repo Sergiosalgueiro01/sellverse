@@ -16,7 +16,6 @@
     <string name="lbPrice">Current price:</string>
     <string name="btnRegister">Register</string>
     <string name="btnCrearCuenta">No tengo cuenta</string>
-    <string name="btnRegister">Registrar</string>
     <string name="btnLogin">Log In</string>
     <string name="txtEmail">Email</string>
     <string name="txtPassword">Password</string>
