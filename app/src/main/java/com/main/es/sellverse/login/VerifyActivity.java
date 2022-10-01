@@ -33,7 +33,7 @@ public class VerifyActivity extends AppCompatActivity {
                     updateUI(user);
                 }
                 else{
-                    Toast.makeText(VerifyActivity.this, "Verifique su correo", Toast.LENGTH_LONG).show();
+                    Toast.makeText(VerifyActivity.this, "Verify your email", Toast.LENGTH_LONG).show();
                 }
             }
         });

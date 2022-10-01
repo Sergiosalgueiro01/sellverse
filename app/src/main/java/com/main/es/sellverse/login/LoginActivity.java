@@ -42,6 +42,19 @@ public class LoginActivity extends AppCompatActivity {
         setUpRegisterEmailPaswword();
         setUpLoginEmailPaswword();
         setUpGoogleButton();
+        forgetPassword();
+    }
+
+    private void forgetPassword() {
+        Button btnForgotPassword = findViewById(R.id.btnResetPsw);
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void setUpLoginEmailPaswword(){
@@ -78,7 +91,8 @@ public class LoginActivity extends AppCompatActivity {
                                     if (user.isEmailVerified()) {
                                         updateUI(user);
                                     } else{
-                                        Toast.makeText(LoginActivity.this, "Verifique su correo", Toast.LENGTH_LONG).show();
+                                        user.sendEmailVerification();
+                                        Toast.makeText(LoginActivity.this, "An email has been sent to you to verify your user name.", Toast.LENGTH_LONG).show();
                                     }
                             } else {
                                 showAlert();
@@ -91,8 +105,8 @@ public class LoginActivity extends AppCompatActivity {
     private void showAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Error");
-        builder.setMessage("Se ha producido un error al autenticar al usuario");
-        builder.setPositiveButton("Aceptar", null);
+        builder.setMessage("An error occurred while authenticating the user.");
+        builder.setPositiveButton("Accept", null);
         builder.create().show();
     }
 
