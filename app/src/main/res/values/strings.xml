@@ -36,4 +36,16 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="add_publication">Add Publication</string>
+    <string name="upload_an_image">Upload an image</string>
+    <string name="info_permissions">To upload a new publication you need to activate the permissions
+        to access your camera and storage. </string>
+    <string name="open_settings">Open settings</string>
+    <string name="not_now">Not now</string>
+    <string name="cancel_permission_message">To access this functionality you must accept the permissions</string>
+    <string name="new_image">Auction</string>
+    <string name="change_image">Change image</string>
+    <string name="see_image">See image</string>
+    <string name="delete_image">Delete image</string>
+    <string name="image">Image</string>
+    <string name="todo">TODO</string>
 </resources>

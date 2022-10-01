@@ -1,4 +1,4 @@
-package com.main.es.sellverse.util;
+package com.main.es.sellverse.util.operations;
 
 public class NumberArrayUtil {
     public static String[] getArrayOfSpecificNumbers(int initialNumber,int finalNumber){

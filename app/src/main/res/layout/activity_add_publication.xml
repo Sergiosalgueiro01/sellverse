@@ -78,7 +78,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.9"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -111,7 +111,7 @@
             android:id="@+id/constraintLayout3"
             android:layout_width="wrap_content"
 
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.9"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -267,22 +267,24 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="359dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
 
-        app:layout_constraintVertical_bias="0.067">
+        app:layout_constraintVertical_bias="0.05">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:hint="@string/title"
             android:inputType="text"
+            android:maxLength="50"
+            app:endIconMode="clear_text"
             android:textColorHint="#757575"
             tools:ignore="TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -293,18 +295,20 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="357dp"
         android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="150"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilTitle"
-
         app:layout_constraintVertical_bias="0.001">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tietDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="150"
             android:hint="@string/description"
             android:inputType="textMultiLine"
             android:textColorHint="#757575"
