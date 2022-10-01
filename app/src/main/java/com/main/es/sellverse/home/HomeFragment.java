@@ -31,6 +31,8 @@ import com.main.es.sellverse.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -127,7 +129,7 @@ public class HomeFragment extends Fragment {
                 });
     }
     private AuctionInterface getAuctionInterface(){
-        String ipSalgue="http://192.168.0.3:8080/";
+        String ipSalgue="http://192.168.1.13:8080/";
         Retrofit retrofit =
                 new Retrofit.Builder()
                         .baseUrl(ipSalgue)
