@@ -74,14 +74,15 @@ public class HomeFragment extends Fragment {
                 R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_home,
                 R.drawable.btn_home, R.drawable.btn_home,R.drawable.btn_home};
 
-        GridAdapter gridAdapter = new GridAdapter(getActivity(),auctionData,auctionImages);
+        GridAdapter gridAdapter = new GridAdapter(getActivity(),auctionImages, auctions);
         binding.gridViewCatalog.setAdapter(gridAdapter);
 
         binding.gridViewCatalog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getActivity(),"You Clicked on "+ auctionData[position],Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -126,7 +127,7 @@ public class HomeFragment extends Fragment {
                 });
     }
     private AuctionInterface getAuctionInterface(){
-        String ipSalgue="http://192.168.1.13:8080/";
+        String ipSalgue="http://192.168.0.3:8080/";
         Retrofit retrofit =
                 new Retrofit.Builder()
                         .baseUrl(ipSalgue)

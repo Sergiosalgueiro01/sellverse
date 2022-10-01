@@ -20,6 +20,42 @@ public class Auction {
     public Auction() {
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Double getInitialPrice() {
+        return initialPrice;
+    }
+
+    public double getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public Timestamp getEndTime() {
+        return endTime;
+    }
+
+    public List<String> getImagesUrls() {
+        return imagesUrls;
+    }
+
+    public List<String> getBids() {
+        return bids;
+    }
+
     public Auction(String id, String title, String description, double initialPrice,
                    double currentPrice, Timestamp startTime,
                    Timestamp endTime, List<String> imagesUrls, List<String> bids) {
