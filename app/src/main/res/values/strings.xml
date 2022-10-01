@@ -14,11 +14,16 @@
     <string name="txSearch">Search</string>
     <string name="lbTime">Remaining time:</string>
     <string name="lbPrice">Current price:</string>
+    <string name="btnCrearCuenta">I don´t have an account</string>
     <string name="btnRegister">Register</string>
-    <string name="btnCrearCuenta">No tengo cuenta</string>
     <string name="btnLogin">Log In</string>
     <string name="txtEmail">Email</string>
     <string name="txtPassword">Password</string>
-    <string name="txtVerifica">¡Verifique su correo!</string>
-    <string name="btnVerificado">Está verificado</string>
+    <string name="txtVerifica">Verify your email!</string>
+    <string name="btnVerificado">You are verified</string>
+    <string name="txtPhoneNumber">Phone Number</string>
+    <string name="txtUsername">Username</string>
+    <string name="btnResetPassword">Forgot your password?</string>
+    <string name="btnResetPsw">Reset password</string>
+
 </resources>

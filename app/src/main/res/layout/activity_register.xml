@@ -6,17 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".login.RegisterActivity">
 
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/fondo" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:background="#d8000000"
+        android:background="@drawable/bg_color"
         android:gravity="center"
         android:layout_height="match_parent">
 
@@ -29,18 +22,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_marginHorizontal="110dp"
-            android:layout_marginBottom="40dp"
-            android:padding="10dp"
-            android:src="@drawable/logo_martillo" />
+        <EditText
+            android:id="@+id/txtUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginHorizontal="50dp"
+            android:ems="10"
+            android:hint="@string/txtUsername"
+            android:inputType="text"
+            android:backgroundTint="@color/teal_200"
+            android:textColorHint="@color/teal_200"
+            android:textColor="@color/teal_200"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/txtEmailR"
-            android:layout_width="308dp"
-            android:layout_height="48dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_marginHorizontal="50dp"
             android:ems="10"
@@ -56,9 +59,29 @@
             android:autofillHints="" />
 
         <EditText
+            android:id="@+id/txtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:layout_marginHorizontal="50dp"
+            android:ems="10"
+            android:hint="@string/txtPhoneNumber"
+            android:inputType="number"
+            android:backgroundTint="@color/teal_200"
+            android:textColorHint="@color/teal_200"
+            android:textColor="@color/teal_200"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:autofillHints="" />
+
+
+
+        <EditText
             android:id="@+id/txtPasswordR"
-            android:layout_width="308dp"
-            android:layout_height="51dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:layout_marginHorizontal="50dp"
             android:ems="10"

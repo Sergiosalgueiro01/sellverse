@@ -8,26 +8,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.ktx.Firebase;
+import com.google.j2objc.annotations.ObjectiveCName;
 import com.main.es.sellverse.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth myAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private FirebaseFirestore mFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         setUpRegisterEmailPaswword();
+        mFirestore = FirebaseFirestore.getInstance();
         myAuth=FirebaseAuth.getInstance();
     }
 
@@ -44,18 +55,45 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void signUpEmailPassword(){
         TextView txtEmail = findViewById(R.id.txtEmailR);
+        String email = txtEmail.getText().toString();
         TextView txtPasword = findViewById(R.id.txtPasswordR);
-        if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()) {
+        String password = txtPasword.getText().toString();
+        TextView txtUsername = findViewById(R.id.txtUsername);
+        String username = txtUsername.getText().toString();
+        TextView txtPhoneNumber = findViewById(R.id.txtPhoneNumber);
+        String phone_number = txtPhoneNumber.getText().toString();
+
+
+        if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()
+            && !txtUsername.getText().toString().isEmpty() && !txtPhoneNumber.getText().toString().isEmpty()) {
             myAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPasword.getText().toString()).addOnCompleteListener(this,
                     new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                FirebaseUser user = myAuth.getCurrentUser();
-                                user.sendEmailVerification();
-                                Intent intent = new Intent(RegisterActivity.this, VerifyActivity.class);
-                                startActivity(intent);
-                                finish();
+                                String id = myAuth.getCurrentUser().getUid();
+                                Map<String, Object> map = new HashMap<>();
+                                map.put("id",id);
+                                map.put("name", username);
+                                //map.put("password", password);
+                                map.put("email", email);
+                                map.put("phone_number", phone_number);
+
+                                mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        FirebaseUser user = myAuth.getCurrentUser();
+                                        user.sendEmailVerification();
+                                        Intent intent = new Intent(RegisterActivity.this, VerifyActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(RegisterActivity.this, "Error to save", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             } else {
                                 showAlert();
                             }
@@ -67,8 +105,8 @@ public class RegisterActivity extends AppCompatActivity {
     private void showAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Error");
-        builder.setMessage("Se ha producido un error al autenticar al usuario");
-        builder.setPositiveButton("Aceptar", null);
+        builder.setMessage("An error ocurred when you save it");
+        builder.setPositiveButton("Accept", null);
         builder.create().show();
     }
 }
