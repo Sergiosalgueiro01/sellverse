@@ -18,20 +18,27 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.util.datasavers.TemporalBitmapSaver;
 import com.main.es.sellverse.util.datasavers.TemporalUriSaver;
@@ -54,6 +61,7 @@ public class AddPublicationActivity extends AppCompatActivity{
     private ImageView iv4 ;
     private ImageView iv5 ;
     private ImageView iv6;
+    private int firstDimensions;
     private  ConstraintLayout c;
 
 
@@ -75,10 +83,69 @@ public class AddPublicationActivity extends AppCompatActivity{
         setUpCoinSpinner();
         setUpImageButton();
         setUpEditText();
+        setUpRadioButton();
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private void setUpRadioButton() {
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        EditText tvTime = findViewById(R.id.etTime);
+        EditText tvDay= findViewById(R.id.etDay);
+        TextInputLayout tvTitle= findViewById(R.id.tilTitle);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+               View radiobutton=radioGroup.findViewById(i);
+               int index=radioGroup.indexOfChild(radiobutton);
+               switch (index){
+                   case 0:
+                       tvTime.setVisibility(View.INVISIBLE);
+                       tvDay.setVisibility(View.INVISIBLE);
+                       break;
+                   case 1:
+                       tvTime.setVisibility(View.VISIBLE);
+                       tvDay.setVisibility(View.VISIBLE);
+
+
+                       break;
+               }
+            }
+        });
+    }
+
+    /**
+     * Set up max lines on a editText
+     */
     private void setUpEditText() {
+        final int[] lastSpecialRequestsCursorPosition = {0};
+        final String[] specialRequest = {""};
+        EditText et = findViewById(R.id.tietDescription);
+        et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                lastSpecialRequestsCursorPosition[0] = et.getSelectionStart();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                et.removeTextChangedListener(this);
+                if(et.getLineCount() >13){ //max of lines of editText
+                    et.setText(specialRequest[0]);
+                    et.setSelection(lastSpecialRequestsCursorPosition[0]);
+                }
+                else{
+                    specialRequest[0] = et.getText().toString();
+                }
+                et.addTextChangedListener(this);
+            }
+        });
     }
 
 
@@ -189,7 +256,7 @@ public class AddPublicationActivity extends AppCompatActivity{
                 TemporalUriSaver.getInstance().lastImageViewChanged=iv1;
                 ViewGroup.LayoutParams params = iv1.getLayoutParams();
 
-                if(params.height!=183){
+                if(params.height==183){
                     showPopup(ib,iv1);
                 }
                 else
@@ -532,6 +599,10 @@ public class AddPublicationActivity extends AppCompatActivity{
 
     private int getImageButtonDimensions() {
         ViewGroup.LayoutParams params = TemporalUriSaver.getInstance().lastButtonChanged.getLayoutParams();
+        return params.height;
+    }
+    private int getTvDimensions() {
+        ViewGroup.LayoutParams params = iv1.getLayoutParams();
         return params.height;
     }
 }

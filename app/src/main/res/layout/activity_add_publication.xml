@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/scrollAdd"
     android:layout_height="match_parent"
 
 
@@ -391,7 +393,7 @@
         android:id="@+id/etDuration"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="20dp"
         android:autofillHints=""
         android:clickable="false"
         android:ems="10"
@@ -422,6 +424,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="true"
             android:text="@string/now" />
 
         <RadioButton
@@ -434,33 +437,39 @@
 
     <EditText
         android:id="@+id/etTime"
-        android:layout_width="340dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="188dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
         android:autofillHints=""
         android:focusable="false"
         android:hint="@string/select_the_time"
         android:inputType="time"
+        android:textColor="@color/black"
         android:textColorHint="#757575"
+        android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.424"
+        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <EditText
         android:id="@+id/etDay"
-        android:layout_width="340dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
         android:autofillHints=""
         android:focusable="false"
         android:hint="@string/select_the_day"
         android:inputType="time"
+        android:textColor="@color/black"
         android:textColorHint="#757575"
+        android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.431"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTime" />
+        app:layout_constraintHorizontal_bias="0.218"
+        app:layout_constraintStart_toEndOf="@+id/etTime"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <EditText
         android:id="@+id/tilDaysSpinner"

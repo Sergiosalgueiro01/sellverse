@@ -47,6 +47,7 @@
         <activity
             android:name=".add.AddPublicationActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
