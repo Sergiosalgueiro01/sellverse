@@ -1,5 +1,6 @@
 package com.main.es.sellverse.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -25,9 +27,11 @@ import com.main.es.sellverse.databinding.FragmentHomeBinding;
 import com.main.es.sellverse.dto.MessageDto;
 import com.main.es.sellverse.interfaces.AuctionInterface;
 import com.main.es.sellverse.interfaces.HelloInterface;
+import com.main.es.sellverse.login.LoginActivity;
 import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.GridAdapter;
 import com.main.es.sellverse.databinding.ActivityMainBinding;
+import com.main.es.sellverse.search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +59,13 @@ public class HomeFragment extends Fragment {
         this.inflater = inflater;
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
-
+        EditText searchText = view.findViewById(R.id.editSearch);
+        searchText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setUpSearchActivity();
+            }
+        });
         return inflater.inflate(R.layout.fragment_home, binding.getRoot());
     }
 
@@ -139,6 +149,9 @@ public class HomeFragment extends Fragment {
         return auctionInterface;
     }
 
-
+    private void setUpSearchActivity() {
+        Intent intent = new Intent(requireActivity(), SearchActivity.class);
+        startActivity(intent);
+    }
 
 }
