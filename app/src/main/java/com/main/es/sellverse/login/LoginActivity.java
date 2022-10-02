@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -41,14 +42,17 @@ public class LoginActivity extends AppCompatActivity {
         setUpRegisterEmailPaswword();
         setUpLoginEmailPaswword();
         setUpGoogleButton();
+        forgetPassword();
     }
 
-    private void setUpRegisterEmailPaswword(){
-        Button btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+    private void forgetPassword() {
+        Button btnForgotPassword = findViewById(R.id.btnResetPsw);
+        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                signUpEmailPassword();
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -63,23 +67,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void signUpEmailPassword(){
-        TextView txtEmail = findViewById(R.id.txtEmail);
-        TextView txtPasword = findViewById(R.id.txtPassword);
-        if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()){
-            FirebaseAuth.getInstance().createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPasword.getText().toString())
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                FirebaseUser user = myAuth.getCurrentUser();
-                                updateUI(user);
-                            } else {
-                                showAlert();
-                            }
-                        }
-                    });
-        }
+    private void setUpRegisterEmailPaswword(){
+        Button btnRegister = findViewById(R.id.btnCrearCuenta);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void signInEmailPassword(){
@@ -91,8 +87,13 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                FirebaseUser user = myAuth.getCurrentUser();
-                                updateUI(user);
+                                    FirebaseUser user = myAuth.getCurrentUser();
+                                    if (user.isEmailVerified()) {
+                                        updateUI(user);
+                                    } else{
+                                        user.sendEmailVerification();
+                                        Toast.makeText(LoginActivity.this, "An email has been sent to you to verify your user name.", Toast.LENGTH_LONG).show();
+                                    }
                             } else {
                                 showAlert();
                             }
@@ -104,8 +105,8 @@ public class LoginActivity extends AppCompatActivity {
     private void showAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Error");
-        builder.setMessage("Se ha producido un error al autenticar al usuario");
-        builder.setPositiveButton("Aceptar", null);
+        builder.setMessage("An error occurred while authenticating the user.");
+        builder.setPositiveButton("Accept", null);
         builder.create().show();
     }
 
@@ -134,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = myAuth.getCurrentUser();
-        if(currentUser !=null)
+        if(currentUser !=null && currentUser.isEmailVerified())
             updateUI(currentUser);
     }
     // [END on_start_check_user]
