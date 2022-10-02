@@ -270,7 +270,7 @@
         android:layout_width="359dp"
         android:layout_height="wrap_content"
         app:counterEnabled="true"
-        app:counterMaxLength="50"
+        app:counterMaxLength="40"
         app:endIconMode="clear_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -285,7 +285,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/title"
             android:inputType="text"
-            android:maxLength="50"
+            android:maxLength="40"
             app:endIconMode="clear_text"
             android:textColorHint="#757575"
             tools:ignore="TextContrastCheck" />
@@ -437,7 +437,7 @@
 
     <EditText
         android:id="@+id/etTime"
-        android:layout_width="188dp"
+        android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
         android:autofillHints=""
@@ -449,13 +449,13 @@
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <EditText
         android:id="@+id/etDay"
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginTop="12dp"
         android:autofillHints=""
@@ -467,7 +467,7 @@
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/etTime"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
@@ -476,7 +476,9 @@
         android:layout_width="112dp"
         android:layout_height="48dp"
         android:hint="@string/day"
-        android:focusable="false"
+        android:inputType="number"
+        android:maxLength="2"
+
         app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -488,7 +490,9 @@
         android:id="@+id/tilHoursSpinner"
         android:layout_width="112dp"
         android:layout_height="48dp"
-        android:focusable="false"
+
+        android:inputType="number"
+        android:maxLength="2"
         android:hint="@string/hour"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.02"
@@ -499,7 +503,9 @@
         android:id="@+id/tilMinutesSpinner"
         android:layout_width="112dp"
         android:layout_height="48dp"
-        android:focusable="false"
+
+        android:inputType="number"
+        android:maxLength="2"
         android:hint="@string/minutes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.02"

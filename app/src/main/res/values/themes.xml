@@ -24,5 +24,13 @@
     <style name="Toolbar_add_publication">
         <item name="android:textColorSecondary">@color/white</item>
     </style>
+    <style name="Theme.datePicker" parent= "android:Theme.Material.Light.Dialog">
+
+        <item name="colorPrimary">#DA1919</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorPrimaryDark">#19DA33</item>
+        <item name="colorSecondary">#00BCD4</item>
+
+    </style>
 
 </resources>

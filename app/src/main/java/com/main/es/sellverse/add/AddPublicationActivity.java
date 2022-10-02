@@ -42,8 +42,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.util.datasavers.TemporalBitmapSaver;
 import com.main.es.sellverse.util.datasavers.TemporalUriSaver;
+import com.main.es.sellverse.util.pickers.DatePickerFragment;
+import com.main.es.sellverse.util.pickers.TimePickerFragment;
 
 import java.io.File;
+import java.sql.Time;
 import java.util.Objects;
 
 
@@ -84,7 +87,39 @@ public class AddPublicationActivity extends AppCompatActivity{
         setUpImageButton();
         setUpEditText();
         setUpRadioButton();
+        setUpEditTextDatePicker();
+        setUpEditTextTimePicker();
 
+    }
+
+    private void setUpEditTextTimePicker() {
+        EditText et = findViewById(R.id.etTime);
+        et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePickerDialog();
+            }
+        });
+    }
+
+    private void showTimePickerDialog() {
+        TimePickerFragment timePicker= new TimePickerFragment();
+        timePicker.show(this.getSupportFragmentManager(),"timePicker");
+    }
+
+    private void setUpEditTextDatePicker() {
+        EditText et = findViewById(R.id.etDay);
+        et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
+    }
+
+    private void showDatePickerDialog() {
+        DatePickerFragment datePickerFragment=new DatePickerFragment();
+        datePickerFragment.show(this.getSupportFragmentManager(),"datePicker");
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -241,6 +276,7 @@ public class AddPublicationActivity extends AppCompatActivity{
         ib3.setVisibility(View.GONE);
         iv3.setVisibility(View.GONE);
         c.setVisibility(View.GONE);
+        firstDimensions=getTvDimensions();
 
         buttonSetOnClickListener(ib1,iv1);
 
@@ -255,8 +291,9 @@ public class AddPublicationActivity extends AppCompatActivity{
                 TemporalUriSaver.getInstance().lastButtonChanged=ib;
                 TemporalUriSaver.getInstance().lastImageViewChanged=iv1;
                 ViewGroup.LayoutParams params = iv1.getLayoutParams();
-
-                if(params.height==183){
+                System.out.println(params.height);
+                System.out.println(firstDimensions);
+                if(params.height!=firstDimensions){
                     showPopup(ib,iv1);
                 }
                 else
@@ -309,8 +346,8 @@ public class AddPublicationActivity extends AppCompatActivity{
 
     private void deleteImage(ImageView iv) {
         ViewGroup.LayoutParams params = iv.getLayoutParams();
-        params.height=183;
-        params.width=183;
+        params.height=firstDimensions;
+        params.width=firstDimensions;
         iv.setImageResource(R.drawable.btn_add);
 
 
@@ -323,7 +360,7 @@ public class AddPublicationActivity extends AppCompatActivity{
         else if(iv5.equals(iv)){
             iv5.setImageBitmap(((BitmapDrawable)iv6.getDrawable()).getBitmap());
 
-              if(getHeightParams(iv6)==183 && iv6.getVisibility()==View.VISIBLE){
+              if(getHeightParams(iv6)==firstDimensions && iv6.getVisibility()==View.VISIBLE){
                 deleteImage(iv5);
                 iv6.setVisibility(View.GONE);
                 ib6.setVisibility(View.GONE);
@@ -333,12 +370,12 @@ public class AddPublicationActivity extends AppCompatActivity{
         else if(iv4.equals(iv)){
             iv4.setImageBitmap(((BitmapDrawable)iv5.getDrawable()).getBitmap());
             iv5.setImageBitmap(((BitmapDrawable)iv6.getDrawable()).getBitmap());
-            if(getHeightParams(iv6)==183 && iv6.getVisibility()==View.VISIBLE){
+            if(getHeightParams(iv6)==firstDimensions && iv6.getVisibility()==View.VISIBLE){
                 deleteImage(iv5);
                 iv6.setVisibility(View.GONE);
                 ib6.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv5)==183 && iv5.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv5)==firstDimensions && iv5.getVisibility()==View.VISIBLE){
                 deleteImage(iv4);
                 iv5.setVisibility(View.GONE);
                 ib5.setVisibility(View.GONE);
@@ -350,17 +387,17 @@ public class AddPublicationActivity extends AppCompatActivity{
             iv3.setImageBitmap(((BitmapDrawable)iv4.getDrawable()).getBitmap());
             iv4.setImageBitmap(((BitmapDrawable)iv5.getDrawable()).getBitmap());
             iv5.setImageBitmap(((BitmapDrawable)iv6.getDrawable()).getBitmap());
-            if(getHeightParams(iv6)==183 && iv6.getVisibility()==View.VISIBLE){
+            if(getHeightParams(iv6)==firstDimensions && iv6.getVisibility()==View.VISIBLE){
                 deleteImage(iv5);
                 iv6.setVisibility(View.GONE);
                 ib6.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv5)==183&& iv5.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv5)==firstDimensions&& iv5.getVisibility()==View.VISIBLE){
                 deleteImage(iv4);
                 iv5.setVisibility(View.GONE);
                 ib5.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv4)==183 && iv4.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv4)==firstDimensions && iv4.getVisibility()==View.VISIBLE){
                 deleteImage(iv3);
                 c.setVisibility(View.GONE);
                 iv4.setVisibility(View.GONE);
@@ -373,23 +410,26 @@ public class AddPublicationActivity extends AppCompatActivity{
             iv3.setImageBitmap(((BitmapDrawable)iv4.getDrawable()).getBitmap());
             iv4.setImageBitmap(((BitmapDrawable)iv5.getDrawable()).getBitmap());
             iv5.setImageBitmap(((BitmapDrawable)iv6.getDrawable()).getBitmap());
-            if(getHeightParams(iv6)==183 && iv6.getVisibility()==View.VISIBLE){
+            if(getHeightParams(iv6)==firstDimensions && iv6.getVisibility()==View.VISIBLE
+                    &&c.getVisibility()==View.VISIBLE){
                 deleteImage(iv5);
                 iv6.setVisibility(View.GONE);
                 ib6.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv5)==183&& iv5.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv5)==firstDimensions&& iv5.getVisibility()==View.VISIBLE
+                    &&c.getVisibility()==View.VISIBLE){
                 deleteImage(iv4);
                 iv5.setVisibility(View.GONE);
                 ib5.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv4)==183 && iv4.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv4)==firstDimensions && iv4.getVisibility()==View.VISIBLE
+                    &&c.getVisibility()==View.VISIBLE){
                 deleteImage(iv3);
                 iv4.setVisibility(View.GONE);
                 ib4.setVisibility(View.GONE);
                 c.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv3)==183 && iv3.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv3)==firstDimensions && iv3.getVisibility()==View.VISIBLE){
                 deleteImage(iv2);
                 iv3.setVisibility(View.GONE);
                 ib3.setVisibility(View.GONE);
@@ -403,28 +443,31 @@ public class AddPublicationActivity extends AppCompatActivity{
             iv3.setImageBitmap(((BitmapDrawable)iv4.getDrawable()).getBitmap());
             iv4.setImageBitmap(((BitmapDrawable)iv5.getDrawable()).getBitmap());
             iv5.setImageBitmap(((BitmapDrawable)iv6.getDrawable()).getBitmap());
-            if(getHeightParams(iv6)==183 && iv6.getVisibility()==View.VISIBLE){
+            if(getHeightParams(iv6)==firstDimensions && iv6.getVisibility()==View.VISIBLE
+                    &&c.getVisibility()==View.VISIBLE){
                 deleteImage(iv5);
                 iv6.setVisibility(View.GONE);
                 ib6.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv5)==183&& iv5.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv5)==firstDimensions&& iv5.getVisibility()==View.VISIBLE
+                    &&c.getVisibility()==View.VISIBLE){
                 deleteImage(iv4);
                 iv5.setVisibility(View.GONE);
                 ib5.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv4)==183 && iv4.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv4)==firstDimensions && iv4.getVisibility()==View.VISIBLE
+                    &&c.getVisibility()==View.VISIBLE){
                 deleteImage(iv3);
                 iv4.setVisibility(View.GONE);
                 ib4.setVisibility(View.GONE);
                 c.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv3)==183 && iv3.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv3)==firstDimensions && iv3.getVisibility()==View.VISIBLE){
                 deleteImage(iv2);
                 iv3.setVisibility(View.GONE);
                 ib3.setVisibility(View.GONE);
             }
-            else if(getHeightParams(iv2)==183 && iv2.getVisibility()==View.VISIBLE){
+            else if(getHeightParams(iv2)==firstDimensions && iv2.getVisibility()==View.VISIBLE){
                 deleteImage(iv1);
                 iv2.setVisibility(View.GONE);
                 ib2.setVisibility(View.GONE);
@@ -569,13 +612,13 @@ public class AddPublicationActivity extends AppCompatActivity{
             iv2.setVisibility(View.VISIBLE);
             buttonSetOnClickListener(ib2,iv2);
         }
-       else if(iv3.getVisibility()!=View.VISIBLE &&getHeightParams(iv2)!=183){
+       else if(iv3.getVisibility()!=View.VISIBLE &&getHeightParams(iv2)!=firstDimensions){
             ib3.setVisibility(View.VISIBLE);
             iv3.setVisibility(View.VISIBLE);
             buttonSetOnClickListener(ib3,iv3);
 
         }
-       else if(c.getVisibility()!=View.VISIBLE &&getHeightParams(iv3)!=183){
+       else if(c.getVisibility()!=View.VISIBLE &&getHeightParams(iv3)!=firstDimensions){
            c.setVisibility(View.VISIBLE);
            iv4.setVisibility(View.VISIBLE);
            ib4.setVisibility(View.VISIBLE);
@@ -585,12 +628,12 @@ public class AddPublicationActivity extends AppCompatActivity{
            iv6.setVisibility(View.GONE);
             buttonSetOnClickListener(ib4,iv4);
         }
-       else if(iv5.getVisibility()!=View.VISIBLE &&getHeightParams(iv4)!=183){
+       else if(iv5.getVisibility()!=View.VISIBLE &&getHeightParams(iv4)!=firstDimensions){
             ib5.setVisibility(View.VISIBLE);
             iv5.setVisibility(View.VISIBLE);
             buttonSetOnClickListener(ib5,iv5);
         }
-       else if(iv6.getVisibility()!=View.VISIBLE &&getHeightParams(iv5)!=183){
+       else if(iv6.getVisibility()!=View.VISIBLE &&getHeightParams(iv5)!=firstDimensions){
             ib6.setVisibility(View.VISIBLE);
             iv6.setVisibility(View.VISIBLE);
             buttonSetOnClickListener(ib6,iv6);
