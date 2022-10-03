@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
                 });
     }
     private HelloInterface getHelloInterface(){
-        String ipSalgue="http://192.168.0.3:8080/";
+        String ipSalgue="http://192.168.1.13:8080/";
         Retrofit retrofit =
                 new Retrofit.Builder()
                         .baseUrl(ipSalgue)
