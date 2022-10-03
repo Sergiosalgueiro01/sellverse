@@ -6,28 +6,20 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
-import com.google.gson.internal.GsonBuildConfig;
+
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.add.AddPublicationActivity;
-import com.main.es.sellverse.dto.MessageDto;
 import com.main.es.sellverse.interfaces.HelloInterface;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -45,10 +37,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        setUpLogin();
+        //setUpLogin();
         setUpFragments();
     }
-
+/**
     private void setUpLogin() {
         FirebaseUser currentUser= FirebaseAuth.getInstance().getCurrentUser();
         currentUser.getIdToken(true)
@@ -79,7 +71,7 @@ public class HomeActivity extends AppCompatActivity {
                         });
                     }
                 });
-    }
+    }*/
     private HelloInterface getHelloInterface(){
         String ipSalgue="http://192.168.1.13:8080/";
         Retrofit retrofit =

@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.home.HomeActivity;
 
@@ -19,9 +17,9 @@ public class VerifyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify);
-        verificado();
+       // verificado();
     }
-
+/**
     private void verificado() {
         Button btnVerificado = findViewById(R.id.btnVerificado);
         btnVerificado.setOnClickListener(new View.OnClickListener() {
@@ -47,5 +45,5 @@ public class VerifyActivity extends AppCompatActivity {
             finish();
         }
 
-    }
+    }*/
 }
