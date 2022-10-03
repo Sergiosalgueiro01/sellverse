@@ -14,16 +14,55 @@
     <string name="txSearch">Search</string>
     <string name="lbTime">Remaining time:</string>
     <string name="lbPrice">Current price:</string>
+
+    <string name="price">Initial Price</string>
     <string name="btnCrearCuenta">I don´t have an account</string>
+
     <string name="btnRegister">Register</string>
     <string name="btnLogin">Log In</string>
     <string name="txtEmail">Email</string>
     <string name="txtPassword">Password</string>
+
+    <string name="coin">Coin</string>
+    <string-array name="coins">
+        <item>€</item>
+        <item>$</item>
+        <item>£</item>
+    </string-array>
+    <string name="program_auction">Program Auction</string>
+    <string name="select_the_time">Select the time</string>
+    <string name="select_the_day">Select the day</string>
+    <string name="now">Now</string>
+    <string name="personalized">Personalized</string>
+    <string name="select_auction_duration">Select the auction duration</string>
+    <string name="day">Days</string>
+    <string name="hour">Hours</string>
+    <string name="minutes">Mins</string>
+    <string name="add">Add</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="are_you_sure_message">Are you sure you want to leave your changes will be lost?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add_publication">Add Publication</string>
+    <string name="upload_an_image">Upload an image</string>
+    <string name="info_permissions">To upload a new publication you need to activate the permissions
+        to access your camera and storage. </string>
+    <string name="open_settings">Open settings</string>
+    <string name="not_now">Not now</string>
+    <string name="cancel_permission_message">To access this functionality you must accept the permissions</string>
+    <string name="new_image">Auction</string>
+    <string name="change_image">Change image</string>
+    <string name="see_image">See image</string>
+    <string name="delete_image">Delete image</string>
+    <string name="image">Image</string>
+    <string name="todo">TODO</string>
+
     <string name="txtVerifica">Verify your email!</string>
     <string name="btnVerificado">You are verified</string>
     <string name="txtPhoneNumber">Phone Number</string>
     <string name="txtUsername">Username</string>
     <string name="btnResetPassword">Forgot your password?</string>
     <string name="btnResetPsw">Reset password</string>
+
 
 </resources>
