@@ -1,6 +1,6 @@
 package com.main.es.sellverse.model;
 
-import com.google.firebase.Timestamp;
+
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public class Auction {
     private String description;
     private double initialPrice;
     private double currentPrice;
-    private Timestamp startTime;
-    private Timestamp endTime;
+   // private Timestamp startTime;
+   // private Timestamp endTime;
     private List<String> imagesUrls;
     private List<String> bids;
 
@@ -40,13 +40,13 @@ public class Auction {
         return currentPrice;
     }
 
-    public Timestamp getStartTime() {
-        return startTime;
-    }
+    //public Timestamp getStartTime() {
+    //    return startTime;
+    //}
 
-    public Timestamp getEndTime() {
-        return endTime;
-    }
+    //public Timestamp getEndTime() {
+    //    return endTime;
+    //}
 
     public List<String> getImagesUrls() {
         return imagesUrls;
@@ -55,7 +55,7 @@ public class Auction {
     public List<String> getBids() {
         return bids;
     }
-
+/*
     public Auction(String id, String title, String description, double initialPrice,
                    double currentPrice, Timestamp startTime,
                    Timestamp endTime, List<String> imagesUrls, List<String> bids) {
@@ -69,7 +69,8 @@ public class Auction {
         this.imagesUrls = imagesUrls;
         this.bids = bids;
     }
-
+*/
+    /*
     @Override
     public String toString() {
         return "Auction{" +
@@ -84,5 +85,7 @@ public class Auction {
                 ", bids=" + bids +
                 '}';
     }
+
+     */
 }
 

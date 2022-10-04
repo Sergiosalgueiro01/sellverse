@@ -19,9 +19,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.databinding.FragmentHomeBinding;
 import com.main.es.sellverse.dto.MessageDto;
@@ -59,13 +56,13 @@ public class HomeFragment extends Fragment {
         this.inflater = inflater;
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
-        EditText searchText = view.findViewById(R.id.editSearch);
-        searchText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setUpSearchActivity();
-            }
-        });
+       // EditText searchText = view.findViewById(R.id.editSearch);
+       // searchText.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+       //     public void onClick(View view) {
+       //         setUpSearchActivity();
+       //     }
+       // });
         return inflater.inflate(R.layout.fragment_home, binding.getRoot());
     }
 
@@ -73,7 +70,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
-        setUpAuctionCatalog();
+        //setUpAuctionCatalog();
         //utiliza aqui el view hijo puta, no existe en fragmentos el findviewById pero puedes hacer el view.findViewbyId
     }
 
@@ -112,7 +109,7 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
+/*
     private void setUpAuctionCatalog() {
         FirebaseUser currentUser= FirebaseAuth.getInstance().getCurrentUser();
         currentUser.getIdToken(true)
@@ -138,6 +135,8 @@ public class HomeFragment extends Fragment {
                     }
                 });
     }
+
+ */
     private AuctionInterface getAuctionInterface(){
         String ipSalgue="http://192.168.1.13:8080/";
         Retrofit retrofit =

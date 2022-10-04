@@ -21,7 +21,7 @@ public class GridAdapter extends BaseAdapter {
 
     LayoutInflater inflater;
 
-    public GridAdapter(Context context, int[] image,  List<Auction> auctions) {
+    public GridAdapter(Context context, int[] image, List<Auction> auctions) {
 
         this.context = context;
         this.image = image;
@@ -52,14 +52,14 @@ public class GridAdapter extends BaseAdapter {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
+        if (convertView == null) {
 
-        if (convertView == null){
-
-            convertView = inflater.inflate(R.layout.item_grid,null);
+            convertView = inflater.inflate(R.layout.item_grid, null);
 
         }
 
 
+/*
         ImageView imageView = convertView.findViewById(R.id.grid_image);
         TextView textName = convertView.findViewById(R.id.item_name);
         imageView.setImageResource(image[position]);
@@ -76,7 +76,9 @@ public class GridAdapter extends BaseAdapter {
                 auctions.get(position).getEndTime().getNanoseconds() ,
                 0);
         textRestTime.setText(restTime);
-
+*/
         return convertView;
     }
+
+
 }
