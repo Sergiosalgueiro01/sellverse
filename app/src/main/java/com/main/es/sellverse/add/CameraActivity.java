@@ -38,6 +38,7 @@ private  ImageButton b;
 private ImageButton b2;
 private int positionOfCamera;
 private static final String TAG="AppDebug";
+private int counter=0;
 
 
     @Override
@@ -176,9 +177,14 @@ private static final String TAG="AppDebug";
     @Override
     protected void onResume() {
         super.onResume();
-        showCamera=new ShowCamera(this,camera);
-        relativeLayout.addView(showCamera);
-        loadButtonsInCamera();
+        if (counter == 1) {
+
+            Intent intent = new Intent(this, CameraActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+        counter++;
     }
 
 
@@ -197,9 +203,15 @@ private static final String TAG="AppDebug";
                 else{
                     positionOfCamera=0;
                     camera=Camera.open(0);}
-                onResume();
+                setUpCamera();
             }
         });
+    }
+
+    private void setUpCamera() {
+        showCamera=new ShowCamera(this,camera);
+        relativeLayout.addView(showCamera);
+        loadButtonsInCamera();
     }
 
     @Override
