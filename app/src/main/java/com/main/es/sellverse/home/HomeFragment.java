@@ -17,19 +17,16 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
+
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.databinding.FragmentHomeBinding;
-import com.main.es.sellverse.dto.MessageDto;
-import com.main.es.sellverse.interfaces.AuctionInterface;
-import com.main.es.sellverse.interfaces.HelloInterface;
-import com.main.es.sellverse.login.LoginActivity;
 import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.GridAdapter;
-import com.main.es.sellverse.databinding.ActivityMainBinding;
 import com.main.es.sellverse.search.SearchActivity;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,6 +38,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 public class HomeFragment extends Fragment {
@@ -56,13 +57,7 @@ public class HomeFragment extends Fragment {
         this.inflater = inflater;
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
-       // EditText searchText = view.findViewById(R.id.editSearch);
-       // searchText.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-       //     public void onClick(View view) {
-       //         setUpSearchActivity();
-       //     }
-       // });
+
         return inflater.inflate(R.layout.fragment_home, binding.getRoot());
     }
 
@@ -70,44 +65,23 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
-        //setUpAuctionCatalog();
+        EditText searchText = view.findViewById(R.id.editSearch);
+        searchText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setUpSearchActivity();
+            }
+        });
+        setUpAuctionCatalog();
         //utiliza aqui el view hijo puta, no existe en fragmentos el findviewById pero puedes hacer el view.findViewbyId
     }
 
-    private void setUpGrid(List<Auction> auctions){
+    private void setUpAuctionCatalog() {
 
-        String[] auctionData = {"Rose","Lotus","Lily","Jasmine",
-                "Tulip","Orchid","Levender","RoseMarry","Sunflower","Carnation", "Sunflower","Carnation", "Sunflower","Carnation"};
-        int[] auctionImages = {R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_add,
-                R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home,
-                R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_home,
-                R.drawable.btn_home, R.drawable.btn_home,R.drawable.btn_home};
+        new RetrieveAuctionsTask().execute(
+                requireActivity()
+        );
 
-        GridAdapter gridAdapter = new GridAdapter(getActivity(),auctionImages, auctions);
-        binding.gridViewCatalog.setAdapter(gridAdapter);
-
-        binding.gridViewCatalog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getActivity(),"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
-
-        binding.gridViewCatalog.setOnScrollChangeListener(new View.OnScrollChangeListener(){
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY){
-                if(oldScrollY > 0) {
-                    binding.layoutSearch.removeAllViews();
-                    System.out.println("baja");
-                }else if(oldScrollY < 0) {
-                    binding.layoutSearch.setVisibility(View.VISIBLE);
-                    System.out.println("sube");
-                }
-            }
-        });
     }
 /*
     private void setUpAuctionCatalog() {
@@ -134,9 +108,8 @@ public class HomeFragment extends Fragment {
                         });
                     }
                 });
-    }
-
- */
+    } */
+    /*
     private AuctionInterface getAuctionInterface(){
         String ipSalgue="http://192.168.1.13:8080/";
         Retrofit retrofit =
@@ -146,7 +119,7 @@ public class HomeFragment extends Fragment {
                         .build();
         AuctionInterface auctionInterface = retrofit.create(AuctionInterface.class);
         return auctionInterface;
-    }
+    } */
 
     private void setUpSearchActivity() {
         Intent intent = new Intent(requireActivity(), SearchActivity.class);
