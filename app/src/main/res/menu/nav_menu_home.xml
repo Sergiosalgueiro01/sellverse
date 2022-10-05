@@ -12,7 +12,7 @@
     <item
         android:id="@+id/add_icon"
         android:title="@string/add_icon"
-        android:icon="@drawable/btn_add" />
+        android:icon="@drawable/btn_add_fragment" />
 
     <item
         android:id="@+id/chat_icon"

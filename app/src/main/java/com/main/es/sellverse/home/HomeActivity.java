@@ -97,33 +97,33 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        //this is just for add icon because it needs to open a new activity
-
-        //this is for the other one because it needs to open a fragment
-        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.home_icon:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,homeFragment).commit();
-
-                        break;
+                        return true;
                     case R.id.bids_icon:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,yourBidsFragment).commit();
-                        break;
+                        return true;
 
 
                     case R.id.profile_icon:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,profileFragment).commit();
-                        break;
+                        return true;
 
                     case R.id.chat_icon:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container,chatFragment).commit();
-                        break;
+                        return true;
                 }
 
+                return false;
             }
         });
+
+
+
     }
 
     /**

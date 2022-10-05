@@ -83,7 +83,6 @@ public class AddPublicationActivity extends AppCompatActivity{
         setContentView(R.layout.activity_add_publication);
 
         setUpMenu();
-        setUpCoinSpinner();
         setUpImageButton();
         setUpEditText();
         setUpRadioButton();
@@ -193,26 +192,7 @@ public class AddPublicationActivity extends AppCompatActivity{
     }
 
 
-    private void setUpCoinSpinner() {
-        AutoCompleteTextView spinner = findViewById(R.id.coinSpinner);
-        spinner.setText(getResources().getStringArray(R.array.coins)[0]);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.coins, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String text= adapterView.getItemAtPosition(i).toString();
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
