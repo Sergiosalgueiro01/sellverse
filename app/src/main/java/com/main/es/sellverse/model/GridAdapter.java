@@ -1,6 +1,7 @@
 package com.main.es.sellverse.model;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+
 import com.main.es.sellverse.R;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class GridAdapter extends BaseAdapter {
@@ -44,6 +49,7 @@ public class GridAdapter extends BaseAdapter {
         return 0;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -59,24 +65,22 @@ public class GridAdapter extends BaseAdapter {
         }
 
 
-/*
+
         ImageView imageView = convertView.findViewById(R.id.grid_image);
         TextView textName = convertView.findViewById(R.id.item_name);
         imageView.setImageResource(image[position]);
 
-        TextView textInitialPrice = convertView.findViewById(R.id.txPrice);
+        TextView textCurrentPrice = convertView.findViewById(R.id.txPrice);
         TextView textRestTime = convertView.findViewById(R.id.txRestTime);
 
         imageView.setImageResource(image[position]);
         textName.setText(auctions.get(position).getTitle());
-        System.out.println(textName.getText());
-        textInitialPrice.setText(auctions.get(position).getInitialPrice().toString());
-        String restTime = (String) DateUtils.getRelativeTimeSpanString(
-                auctions.get(position).getStartTime().getNanoseconds() ,
-                auctions.get(position).getEndTime().getNanoseconds() ,
-                0);
-        textRestTime.setText(restTime);
-*/
+        textCurrentPrice.setText(auctions.get(position).getInitialPrice().toString());
+
+        LocalDateTime t = auctions.get(position).getEndTime();
+        String s = t.getYear() +"/"+t.getMonthValue()+"/"+t.getDayOfMonth();
+        textRestTime.setText(s);
+
         return convertView;
     }
 

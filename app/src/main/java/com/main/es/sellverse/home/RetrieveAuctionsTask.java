@@ -2,37 +2,46 @@ package com.main.es.sellverse.home;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.main.es.sellverse.R;
-import com.main.es.sellverse.databinding.FragmentHomeBinding;
 import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.GridAdapter;
 
-import org.xml.sax.XMLReader;
+//import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
-import com.main.es.sellverse.R;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+public class RetrieveAuctionsTask extends AsyncTask<HomeFragment, Void, List<Auction>> {
 
-public class RetrieveAuctionsTask extends AsyncTask<Activity, Void, List<Auction>> {
 
-    private Activity activity;
+    private HomeFragment home;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    protected List<Auction> doInBackground(Activity... activities) {
+    protected List<Auction> doInBackground(HomeFragment... homes) {
         StringBuilder resultado = new StringBuilder();
         String data = null;
+        this.home = homes[0];
         try {
             URL url = new URL("https://vr52xjxzo0.execute-api.eu-central-1.amazonaws.com/dev/auctions/active");
             HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
@@ -45,8 +54,9 @@ public class RetrieveAuctionsTask extends AsyncTask<Activity, Void, List<Auction
             }
             rd.close();
             data = resultado.toString();
-            // converti a list auctions y pasarlo aqui
-            setUpGrid(null, activities[0]);
+            List<Auction> auctions = parseAuctions(data);
+
+           return auctions;
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -54,28 +64,61 @@ public class RetrieveAuctionsTask extends AsyncTask<Activity, Void, List<Auction
         return null;
     }
 
-    private void setUpGrid(List<Auction> auctions, Activity activity){
+    @Override
+    protected void onPostExecute(List<Auction> auctions){
+        home.setUpGrid(auctions);
+    }
 
-        String[] auctionData = {"Rose","Lotus","Lily","Jasmine",
-                "Tulip","Orchid","Levender","RoseMarry","Sunflower","Carnation", "Sunflower","Carnation", "Sunflower","Carnation"};
-        int[] auctionImages = {R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_add,
-                R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home,
-                R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_home,
-                R.drawable.btn_home, R.drawable.btn_home,R.drawable.btn_home};
-
-        GridAdapter gridAdapter = new GridAdapter(activity,auctionImages, auctions);
-        GridView g =  activity.findViewById(R.id.gridViewCatalog);
-        g.setAdapter(gridAdapter);
-
-        g.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(activity,"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
-
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private List<Auction> parseAuctions(String data){
+        List<Auction> res = new ArrayList<>();
+        JsonArray json = new Gson().fromJson(data, JsonArray.class);
+        for(JsonElement auc : json){
+            Auction a = new Auction();
+            JsonObject jo = auc.getAsJsonObject();
+            a.setId(jo.get("id").getAsString());
+            a.setTitle(jo.get("title").getAsString());
+            a.setDescription(jo.get("description").getAsString());
+            a.setInitialPrice(jo.get("initialPrice").getAsDouble());
+            a.setCurrentPrice(jo.get("currentPrice").getAsDouble());
+            a.setUserId(jo.get("userId").getAsString());
+            List<String> bids = new ArrayList<>();
+            for(JsonElement bid: jo.get("bids").getAsJsonArray()){
+                bids.add(bid.getAsString());
             }
-        });
+            a.setBids(bids);
+            List<String> imagePaths = new ArrayList<>();
+            for(JsonElement img: jo.get("imagePaths").getAsJsonArray()){
+                imagePaths.add(img.getAsString());
+            }
+            a.setImagesUrls(imagePaths);
+            JsonObject joStartDate = jo.get("startTime").getAsJsonObject();
+            a.setStartTime(parseDate(joStartDate));
+            JsonObject joEndTime = jo.get("startTime").getAsJsonObject();
+            a.setEndTime(parseDate(joEndTime));
+            res.add(a);
+        }
+
+        return res;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private LocalDateTime parseDate(JsonObject joDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String s = joDate.get("year").getAsString() + "-" +
+                fixDate(joDate.get("monthValue").getAsString()) +"-"+
+                fixDate(joDate.get("dayOfMonth").getAsString())+ " "+
+                fixDate(joDate.get("hour").getAsString())+":"+
+                fixDate(joDate.get("minute").getAsString())+":"+
+                fixDate(joDate.get("second").getAsString());
+        return LocalDateTime.parse(s, formatter);
+    }
+
+    private String fixDate(String data){
+        if(data.length() < 2)
+            return "0"+data;
+        else
+            return data;
     }
 
 }
