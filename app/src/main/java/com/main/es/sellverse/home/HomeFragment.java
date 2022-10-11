@@ -2,6 +2,7 @@ package com.main.es.sellverse.home;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -71,14 +72,9 @@ public class HomeFragment extends Fragment {
 
     public void setUpGrid(List<Auction> auctions){
 
-        String[] auctionData = {"Rose","Lotus","Lily","Jasmine",
-                "Tulip","Orchid","Levender","RoseMarry","Sunflower","Carnation", "Sunflower","Carnation", "Sunflower","Carnation"};
-        int[] auctionImages = {R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_add,
-                R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home,
-                R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_home,
-                R.drawable.btn_home, R.drawable.btn_home,R.drawable.btn_home};
 
-        GridAdapter gridAdapter = new GridAdapter(requireActivity(),auctionImages, auctions);
+
+        GridAdapter gridAdapter = new GridAdapter(requireActivity(), auctions);
         GridView g =  requireActivity().findViewById(R.id.gridViewCatalog);
         g.setAdapter(gridAdapter);
 
