@@ -26,7 +26,6 @@
                 android:layout_width="231dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="16dp"
-                android:text="Roseaaaaaaaaaaaaaaaa"
                 android:textSize="22sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,12 +42,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
             <TextView
-                android:id="@+id/txPrice"
+                android:id="@+id/txRestTime"
                 android:layout_width="83dp"
                 android:layout_height="27dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:text="24.4$"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_name" />
 
@@ -63,14 +61,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/lbPrice" />
 
             <TextView
-                android:id="@+id/txRestTime"
+                android:id="@+id/txPrice"
                 android:layout_width="89dp"
                 android:layout_height="25dp"
+                android:layout_marginStart="39dp"
                 android:layout_marginTop="21dp"
                 android:layout_marginEnd="13dp"
-                android:text="12:06:24"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txPrice" />
+                app:layout_constraintStart_toEndOf="@+id/lbRestTime"
+                app:layout_constraintTop_toBottomOf="@+id/txRestTime" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

@@ -12,7 +12,7 @@
     <string name="description">Description</string>
     <string name="btFilter">Filters</string>
     <string name="txSearch">Search</string>
-    <string name="lbTime">Remaining time:</string>
+    <string name="lbTime">End date:</string>
     <string name="lbPrice">Current price:</string>
 
     <string name="price">Initial Price</string>
