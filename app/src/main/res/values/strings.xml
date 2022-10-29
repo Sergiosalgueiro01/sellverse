@@ -14,6 +14,8 @@
     <string name="btnRegister">Register</string>
     <string name="btnLogin">Log In</string>
     <string name="txtEmail">Email</string>
+    <string name="txtName">Name</string>
+    <string name="txtSurname">Surname</string>
     <string name="txtPassword">Password</string>
     <string name="txtVerifica">Verify your email!</string>
     <string name="btnVerificado">You are verified</string>
