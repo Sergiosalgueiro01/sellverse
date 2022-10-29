@@ -42,12 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setUpRegisterEmailPaswword();
-      // setUpLoginEmailPaswword();
-       // setUpGoogleButton();
+        setUpLoginEmailPaswword();
+        setUpGoogleButton();
         forgetPassword();
-        Intent intent= new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     private void forgetPassword() {
