@@ -13,6 +13,10 @@ import com.main.es.sellverse.R;
 
 
 
+
+    private FirebaseAuth myAuth;
+    private FirebaseFirestore mFirestore;
+
 public class RegisterActivity extends AppCompatActivity {
 
    // private FirebaseAuth myAuth;
@@ -48,7 +52,10 @@ public class RegisterActivity extends AppCompatActivity {
         String username = txtUsername.getText().toString();
         TextView txtPhoneNumber = findViewById(R.id.txtPhoneNumber);
         String phone_number = txtPhoneNumber.getText().toString();
-
+        TextView txtName = findViewById(R.id.txtNameR);
+        String name = txtName.getText().toString();
+        TextView txtSurname = findViewById(R.id.txtSurnameR);
+        String surname = txtSurname.getText().toString();
 
         if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()
             && !txtUsername.getText().toString().isEmpty() && !txtPhoneNumber.getText().toString().isEmpty()) {
@@ -59,9 +66,10 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 String id = myAuth.getCurrentUser().getUid();
                                 Map<String, Object> map = new HashMap<>();
-                                map.put("id",id);
+                                map.put("id", id);
                                 map.put("name", username);
-                                //map.put("password", password);
+                                map.put("name", name);
+                                map.put("surname", surname);
                                 map.put("email", email);
                                 map.put("phone_number", phone_number);
 
@@ -80,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         Toast.makeText(RegisterActivity.this, "Error to save", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                            } else {
+                            }else {
                                 showAlert();
                             }
                         }
