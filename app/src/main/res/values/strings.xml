@@ -21,6 +21,8 @@
     <string name="btnRegister">Register</string>
     <string name="btnLogin">Log In</string>
     <string name="txtEmail">Email</string>
+    <string name="txtName">Name</string>
+    <string name="txtSurname">Surname</string>
     <string name="txtPassword">Password</string>
 
     <string name="coin">Coin</string>
