@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/chageImage"
+        android:title="@string/change_image" />
+    <item
+        android:id="@+id/seeImage"
+        android:title="@string/see_image" />
+    <item
+        android:id="@+id/deleteImage"
+        android:title="@string/delete_image">
+    </item>
+</menu>

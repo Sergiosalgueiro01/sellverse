@@ -7,39 +7,12 @@
         android:layout_height="wrap_content"
         tools:context=".home.HomeFragment">
 
-    <LinearLayout
-        android:id="@+id/layoutSearch"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/light_blue_grey">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/catalog_toolbar"
 
-        <ImageView
-            android:id="@+id/imgBtSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_search" />
+        />
 
-        <EditText
-            android:id="@+id/editSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:text="Buscar" />
-
-        <Button
-            android:id="@+id/btFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Filtrar"
-            android:background="@color/light_orange"/>
-    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -49,17 +22,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"
         android:background="@color/white">
+
 
         <GridView
             android:id="@+id/gridViewCatalog"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:numColumns="2"
+            android:numColumns="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

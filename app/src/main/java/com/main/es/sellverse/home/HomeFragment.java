@@ -1,23 +1,34 @@
 package com.main.es.sellverse.home;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+
+
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.databinding.FragmentHomeBinding;
+import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.GridAdapter;
-import com.main.es.sellverse.databinding.ActivityMainBinding;
+import com.main.es.sellverse.search.SearchActivity;
+
+import java.util.List;
 
 
 public class HomeFragment extends Fragment {
@@ -41,48 +52,45 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
-        setUpGrid();
+        setUpAuctionCatalog();
+        ActionMenuItemView filterText = view.findViewById(R.id.filters);
+        filterText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setUpFilterActivity();
+            }
+        });
+        ActionMenuItemView searchSimbol = view.findViewById(R.id.search);
+        searchSimbol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setUpFilterActivity();
+            }
+        });
+
+
         //utiliza aqui el view hijo puta, no existe en fragmentos el findviewById pero puedes hacer el view.findViewbyId
     }
 
-    private void setUpGrid(){
-        System.out.println("por aqui pasa bbb");
+    private void setUpAuctionCatalog() {
+        new RetrieveAuctionsTask().execute(this);
+    }
 
-
-        String[] auctionData = {"Rose","Lotus","Lily","Jasmine",
-                "Tulip","Orchid","Levender","RoseMarry","Sunflower","Carnation", "Sunflower","Carnation", "Sunflower","Carnation"};
-        int[] auctionImages = {R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_add,
-                R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home,
-                R.drawable.btn_home,R.drawable.btn_home,R.drawable.btn_home, R.drawable.btn_home,
-                R.drawable.btn_home, R.drawable.btn_home,R.drawable.btn_home};
-
-        GridAdapter gridAdapter = new GridAdapter(getActivity(),auctionData,auctionImages);
-        binding.gridViewCatalog.setAdapter(gridAdapter);
-
-        binding.gridViewCatalog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    public void setUpGrid(List<Auction> auctions){
+        GridAdapter gridAdapter = new GridAdapter(requireActivity(), auctions);
+        GridView g =  requireActivity().findViewById(R.id.gridViewCatalog);
+        g.setAdapter(gridAdapter);
+        g.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getActivity(),"You Clicked on "+ auctionData[position],Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        binding.gridViewCatalog.setOnScrollChangeListener(new View.OnScrollChangeListener(){
-            @Override
-            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY){
-                if(oldScrollY > 0) {
-                    binding.layoutSearch.removeAllViews();
-                    System.out.println("baja");
-                }else if(oldScrollY < 0) {
-                    binding.layoutSearch.setVisibility(View.VISIBLE);
-                    System.out.println("sube");
-                }
+                Toast.makeText(requireActivity(),"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
-
+    private void setUpFilterActivity() {
+        Intent intent = new Intent(requireActivity(), SearchActivity.class);
+        startActivity(intent);
+    }
 
 }
