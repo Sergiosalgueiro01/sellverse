@@ -4,34 +4,42 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.main.es.sellverse.R;
 
+import java.util.HashMap;
+import java.util.Map;
 
-
+public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth myAuth;
     private FirebaseFirestore mFirestore;
 
-public class RegisterActivity extends AppCompatActivity {
-
-   // private FirebaseAuth myAuth;
-    //private FirebaseAuth.AuthStateListener authStateListener;
-   // private FirebaseFirestore mFirestore;
-/**
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         setUpRegisterEmailPaswword();
         mFirestore = FirebaseFirestore.getInstance();
-        myAuth=FirebaseAuth.getInstance();
+        myAuth= FirebaseAuth.getInstance();
     }
-*/
+
 
     private void setUpRegisterEmailPaswword(){
         Button btnRegister = findViewById(R.id.btnRegister);
@@ -42,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-/**
+
     private void signUpEmailPassword(){
         TextView txtEmail = findViewById(R.id.txtEmailR);
         String email = txtEmail.getText().toString();
@@ -95,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                     });
         }
     }
-*/
+
     private void showAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Error");
