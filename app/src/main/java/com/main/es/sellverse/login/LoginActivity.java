@@ -5,18 +5,33 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.home.HomeActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    //private FirebaseAuth myAuth;
+    private FirebaseAuth myAuth;
     private static final int RC_SIGN_IN=9001;
     private GoogleSignInClient mGoogleSignInClient;
     private static final String TAG = "GoogleActivity";
@@ -27,12 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setUpRegisterEmailPaswword();
-      // setUpLoginEmailPaswword();
-       // setUpGoogleButton();
+        setUpLoginEmailPaswword();
+        setUpGoogleButton();
         forgetPassword();
-        Intent intent= new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
     }
 
     private void forgetPassword() {
@@ -46,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-/**
+
     private void setUpLoginEmailPaswword(){
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-*/
+
     private void setUpRegisterEmailPaswword(){
         Button btnRegister = findViewById(R.id.btnCrearCuenta);
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-/**
+
     private void signInEmailPassword(){
         TextView txtEmail = findViewById(R.id.txtEmail);
         TextView txtPasword = findViewById(R.id.txtPassword);
@@ -91,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
     }
-*/
+
     private void showAlert(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Error");
@@ -99,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         builder.setPositiveButton("Accept", null);
         builder.create().show();
     }
-/**
+
     private void setUpGoogleButton() {
         findViewById(R.id.btnSignWithGoogle).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,9 +128,9 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
         myAuth=FirebaseAuth.getInstance();
     }
-*/
 
-/**
+
+
     // [START on_start_check_user]
     @Override
     public void onStart() {
@@ -189,5 +201,5 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-    */
+
 }
