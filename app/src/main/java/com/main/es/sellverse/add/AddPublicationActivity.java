@@ -779,7 +779,8 @@ public class AddPublicationActivity extends AppCompatActivity{
     private Uri getUriFromBitmap(Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, "bddaas", null);
+        String uuid= UUID.randomUUID().toString();
+        String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, uuid, null);
         return Uri.parse(path);
     }
 
