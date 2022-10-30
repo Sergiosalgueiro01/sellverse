@@ -2,9 +2,15 @@ package com.main.es.sellverse.model;
 
 
 
+import com.google.firebase.firestore.Exclude;
+import com.main.es.sellverse.util.date.DateConvertionUtil;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -15,8 +21,8 @@ public class Auction {
     private String description;
     private Double initialPrice;
     private Double currentPrice;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private Date startTime;
+    private Date endTime;
     private List<String> imagesUrls;
     private List<String> bids;
     private String userId;
@@ -25,8 +31,8 @@ public class Auction {
     }
 
     public Auction(String id, String title, String description,
-                   double initialPrice, double currentPrice, LocalDateTime startTime,
-                   LocalDateTime endTime, List<String> imagesUrls, List<String> bids, String userId) {
+                   double initialPrice, double currentPrice, Date startTime,
+                   Date endTime, List<String> imagesUrls, List<String> bids, String userId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -59,11 +65,11 @@ public class Auction {
         return currentPrice;
     }
 
-    public LocalDateTime getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
@@ -95,11 +101,11 @@ public class Auction {
         this.currentPrice = currentPrice;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -119,6 +125,29 @@ public class Auction {
         this.userId = userId;
     }
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("id", id);
+        result.put("title", title);
+        result.put("description", description);
+        result.put("initialPrice", initialPrice);
+        result.put("startTime", DateConvertionUtil.convert(startTime));
+        result.put("endTime",DateConvertionUtil.convert(endTime));
+        result.put("imagesUrls",getUrls());
+        result.put("currentPrice",getCurrentPrice());
+        return result;
+    }
+    private  Map<String, Object> getUrls(){
+        HashMap<String,Object>urls = new HashMap<>();
+        int i=0;
+        for (String url:getImagesUrls()) {
+            urls.put(i+"",url);
+            i++;
+        }
+        return urls;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

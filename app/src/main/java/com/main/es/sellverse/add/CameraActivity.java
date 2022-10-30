@@ -39,7 +39,7 @@ private ImageButton b2;
 private int positionOfCamera;
 private static final String TAG="AppDebug";
 private int counter=0;
-
+private boolean isOnGallery=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +157,9 @@ private int counter=0;
     }
 
     private void captureImageUsingGallery() {
+        isOnGallery=true;
         GalleryUtil.pickFromGallery(this);
+
     }
 
 
@@ -177,13 +179,15 @@ private int counter=0;
     @Override
     protected void onResume() {
         super.onResume();
+        if(!isOnGallery){
         if (counter == 1) {
-
             Intent intent = new Intent(this, CameraActivity.class);
             startActivity(intent);
             finish();
 
         }
+        }
+        isOnGallery=false;
         counter++;
     }
 

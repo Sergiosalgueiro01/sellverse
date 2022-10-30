@@ -58,7 +58,7 @@
     <string name="delete_image">Delete image</string>
     <string name="image">Image</string>
     <string name="todo">TODO</string>
-
+    <string name="prefs_file">com.main.sellverse.PREFERENCE_FILE_KEY</string>
     <string name="txtVerifica">Verify your email!</string>
     <string name="btnVerificado">You are verified</string>
     <string name="txtPhoneNumber">Phone Number</string>

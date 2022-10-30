@@ -9,49 +9,67 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.main.es.sellverse.R;
+import com.main.es.sellverse.model.Auction;
+import com.main.es.sellverse.persistence.AuctionDataBase;
+import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalBitmapSaver;
+import com.main.es.sellverse.util.datasavers.TemporalStringSaver;
+import com.main.es.sellverse.util.datasavers.TemporalTimeSaver;
 import com.main.es.sellverse.util.datasavers.TemporalUriSaver;
+import com.main.es.sellverse.util.date.DateConvertionUtil;
+import com.main.es.sellverse.util.hash.HashGenerator;
 import com.main.es.sellverse.util.pickers.DatePickerFragment;
 import com.main.es.sellverse.util.pickers.TimePickerFragment;
 
-import java.io.File;
-import java.sql.Time;
+import org.checkerframework.checker.units.qual.A;
+
+import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+import java.util.UUID;
 
 
 public class AddPublicationActivity extends AppCompatActivity{
-
+    private Auction auctionToAdd;
     private ImageButton ib1 ;
     private ImageButton ib2 ;
     private ImageButton ib3 ;
@@ -66,7 +84,9 @@ public class AddPublicationActivity extends AppCompatActivity{
     private ImageView iv6;
     private int firstDimensions;
     private  ConstraintLayout c;
-
+    private int numberOfImages=0;
+    private boolean hasChange=false;
+    private int counter=0;
 
     private String[] permissions= new String[]{
             Manifest.permission.CAMERA,
@@ -91,19 +111,24 @@ public class AddPublicationActivity extends AppCompatActivity{
 
     }
 
+
+
+
+
     private void setUpEditTextTimePicker() {
         EditText et = findViewById(R.id.etTime);
         et.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTimePickerDialog();
+                showTimePickerDialog(et);
             }
         });
     }
 
-    private void showTimePickerDialog() {
-        TimePickerFragment timePicker= new TimePickerFragment();
+    private void showTimePickerDialog(EditText et) {
+        TimePickerFragment timePicker= new TimePickerFragment(et);
         timePicker.show(this.getSupportFragmentManager(),"timePicker");
+
     }
 
     private void setUpEditTextDatePicker() {
@@ -111,14 +136,17 @@ public class AddPublicationActivity extends AppCompatActivity{
         et.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDatePickerDialog();
+                showDatePickerDialog(et);
             }
         });
     }
 
-    private void showDatePickerDialog() {
-        DatePickerFragment datePickerFragment=new DatePickerFragment();
+    @SuppressLint("SetTextI18n")
+    private void showDatePickerDialog(EditText et) {
+        DatePickerFragment datePickerFragment=new DatePickerFragment(et);
         datePickerFragment.show(this.getSupportFragmentManager(),"datePicker");
+
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -228,11 +256,15 @@ public class AddPublicationActivity extends AppCompatActivity{
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.positiveButonCheckPublication:
+                addToDatabase();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -271,8 +303,7 @@ public class AddPublicationActivity extends AppCompatActivity{
                 TemporalUriSaver.getInstance().lastButtonChanged=ib;
                 TemporalUriSaver.getInstance().lastImageViewChanged=iv1;
                 ViewGroup.LayoutParams params = iv1.getLayoutParams();
-                System.out.println(params.height);
-                System.out.println(firstDimensions);
+
                 if(params.height!=firstDimensions){
                     showPopup(ib,iv1);
                 }
@@ -316,6 +347,7 @@ public class AddPublicationActivity extends AppCompatActivity{
                         openSeePhotoActivity(iv);
                         return true;
                     case R.id.deleteImage:
+                        numberOfImages--;
                         checkDeletedImages(iv);
                 }
                 return false;
@@ -583,6 +615,7 @@ public class AddPublicationActivity extends AppCompatActivity{
             params.height=dimension;
 
             checkVisibilityOfNextElement();
+            numberOfImages++;
         }
     }
 
@@ -628,4 +661,131 @@ public class AddPublicationActivity extends AppCompatActivity{
         ViewGroup.LayoutParams params = iv1.getLayoutParams();
         return params.height;
     }
+    private void addToDatabase(){
+        hasChange = true;
+        auctionToAdd = new Auction();
+        String idAuction = UUID.randomUUID().toString();
+        idAuction = HashGenerator.getSHA256(idAuction);
+        auctionToAdd.setId(idAuction);
+        auctionToAdd.setImagesUrls(TemporalStringSaver.getInstance().list);
+
+        TextInputEditText title = findViewById(R.id.tietTitle);
+        TextInputEditText description = findViewById(R.id.tietDescription);
+        TextInputEditText price = findViewById(R.id.tietPrice);
+        EditText maxDays = findViewById(R.id.tilDaysSpinner);
+        EditText maxMinutes = findViewById(R.id.tilMinutesSpinner);
+        EditText maxHours= findViewById(R.id.tilHoursSpinner);
+        RadioButton rNow = findViewById(R.id.rbNow);
+        auctionToAdd.setTitle(title.getText().toString());
+        auctionToAdd.setDescription(description.getText().toString());
+        auctionToAdd.setInitialPrice(Double.parseDouble(price.getText().toString()));
+        auctionToAdd.setCurrentPrice(Double.parseDouble(price.getText().toString()));
+        getImagesAndSave(auctionToAdd);
+
+        if(rNow.isChecked()){
+            Calendar calendar = Calendar.getInstance();
+            Date date = calendar.getTime();
+            date.setYear(date.getYear()+1900);
+            auctionToAdd.setStartTime(date);
+        }
+        else {
+            auctionToAdd.setStartTime(DateConvertionUtil.getDate(
+                    TemporalTimeSaver.getInstance().year,
+                    TemporalTimeSaver.getInstance().month,
+                    TemporalTimeSaver.getInstance().day,
+                    TemporalTimeSaver.getInstance().hours,
+                    TemporalTimeSaver.getInstance().minutes,
+                    0
+            ));
+        }
+
+
+        auctionToAdd.setEndTime(DateConvertionUtil.addTime(
+                Integer.parseInt(maxDays.getText().toString()),
+                Integer.parseInt(maxHours.getText().toString()),
+                Integer.parseInt(maxMinutes.getText().toString())
+        ));
+
+        if(counter!=0)
+            finish();
+        else
+            counter++;
+
+
+    }
+
+    @Override
+    protected void onStop() {
+        if(hasChange) {
+
+            auctionToAdd.setImagesUrls(TemporalStringSaver.getInstance().list);
+
+            AuctionDataBase.createAction(auctionToAdd);
+        }
+        super.onStop();
+
+    }
+
+    private void getImagesAndSave(Auction auctionToAdd) {
+        List<Bitmap>listOfBitmap = new ArrayList<>();
+        if(numberOfImages>=1)
+            listOfBitmap.add(getBipMapOfAImageView(iv1));
+        if(numberOfImages>=2)
+            listOfBitmap.add(getBipMapOfAImageView(iv2));
+        if(numberOfImages>=3)
+            listOfBitmap.add(getBipMapOfAImageView(iv3));
+        if(numberOfImages>=4)
+            listOfBitmap.add(getBipMapOfAImageView(iv4));
+        if(numberOfImages>=5)
+            listOfBitmap.add(getBipMapOfAImageView(iv5));
+        if(numberOfImages>=6)
+            listOfBitmap.add(getBipMapOfAImageView(iv6));
+        saveImages(listOfBitmap,auctionToAdd);
+    }
+
+    private Bitmap getBipMapOfAImageView(ImageView iv) {
+        Bitmap bm=((BitmapDrawable)iv.getDrawable()).getBitmap();
+        return bm;
+    }
+    private void saveImages(List<Bitmap> listOfBitmap, Auction auctionToAdd){
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        String nameOfImage = preferences.getString("email","");
+        nameOfImage= HashGenerator.getSHA256(nameOfImage);
+
+
+        nameOfImage+=HashGenerator.getSHA256(auctionToAdd.getDescription()
+                +auctionToAdd.getTitle());
+        for(int i =0;i<listOfBitmap.size();i++){
+            Uri uri = getUriFromBitmap(listOfBitmap.get(i));
+            nameOfImage+=i;
+
+            AuctionDataBase.addImage(uri,i,nameOfImage);
+
+
+           AuctionDataBase.getImage(uri, nameOfImage);
+
+
+        }
+
+
+        }
+
+
+
+
+
+
+
+    private Uri getUriFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String uuid= UUID.randomUUID().toString();
+        String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), bitmap, uuid, null);
+        return Uri.parse(path);
+    }
+
+
+
+
+
 }

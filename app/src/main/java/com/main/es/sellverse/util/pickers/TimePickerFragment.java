@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.TimePicker;
 
 
@@ -12,15 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.main.es.sellverse.util.datasavers.TemporalTimeSaver;
+
 import java.util.Calendar;
 
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+    private EditText et;
 
+    public TimePickerFragment(EditText et) {
+        this.et = et;
+    }
 
     @Override
-    public void onTimeSet(TimePicker timePicker, int i, int i1) {
-
+    public void onTimeSet(TimePicker timePicker, int hour, int minutes) {
+        TemporalTimeSaver.getInstance().hours = hour;
+        TemporalTimeSaver.getInstance().minutes=minutes;
+        et.setText(hour+":"+minutes);
     }
 
     @NonNull

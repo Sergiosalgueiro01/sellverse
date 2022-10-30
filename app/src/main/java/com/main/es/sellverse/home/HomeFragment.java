@@ -26,7 +26,9 @@ import com.main.es.sellverse.R;
 import com.main.es.sellverse.databinding.FragmentHomeBinding;
 import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.GridAdapter;
+import com.main.es.sellverse.persistence.AuctionDataBase;
 import com.main.es.sellverse.search.SearchActivity;
+import com.main.es.sellverse.util.tasks.RetrieveAuctionsTask;
 
 import java.util.List;
 
@@ -74,6 +76,7 @@ public class HomeFragment extends Fragment {
 
     private void setUpAuctionCatalog() {
         new RetrieveAuctionsTask().execute(this);
+
     }
 
     public void setUpGrid(List<Auction> auctions){
