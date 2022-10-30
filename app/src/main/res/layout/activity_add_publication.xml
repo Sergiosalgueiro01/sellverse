@@ -8,14 +8,14 @@
     android:layout_width="match_parent"
     android:id="@+id/scrollAdd"
     android:layout_height="match_parent"
-    android:layout_marginBottom="70dp"
+    android:layout_marginBottom="20dp"
+
     >
 
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     >
     <include
         android:id="@+id/toolbar"

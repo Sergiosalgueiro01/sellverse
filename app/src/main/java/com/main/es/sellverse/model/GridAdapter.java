@@ -16,6 +16,7 @@ import com.main.es.sellverse.R;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class GridAdapter extends BaseAdapter {
@@ -71,15 +72,16 @@ public class GridAdapter extends BaseAdapter {
         TextView textCurrentPrice = convertView.findViewById(R.id.txPrice);
         TextView textRestTime = convertView.findViewById(R.id.txRestTime);
 
-        String url = "https://vr52xjxzo0.execute-api.eu-central-1.amazonaws.com/dev/auctions/images/"
-                + auctions.get(position).getImagesUrls().get(0);
+        String url =auctions.get(position).getImagesUrls().get(0);
         Picasso.get()
                 .load(url).into(imageView);
 
         textName.setText(auctions.get(position).getTitle());
         textCurrentPrice.setText(auctions.get(position).getCurrentPrice().toString());
-        LocalDateTime t = auctions.get(position).getEndTime();
-        String s = t.getYear() +"/"+t.getMonthValue()+"/"+t.getDayOfMonth();
+        Date t = auctions.get(position).getEndTime();
+        int month = t.getMonth()+1;
+        int years =t.getYear()+1900;
+        String s = years+"/"+month+"/"+t.getDate();
         textRestTime.setText(s);
 
         return convertView;

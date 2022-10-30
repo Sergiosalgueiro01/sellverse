@@ -3,7 +3,9 @@ package com.main.es.sellverse.login;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -193,13 +195,20 @@ public class LoginActivity extends AppCompatActivity {
     // [END signin]
 
     private void updateUI(FirebaseUser user) {
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser!=null){
+        addToPrefs(user);
+        if(user!=null){
             Intent intent= new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();
         }
 
+
+    }
+    private void addToPrefs(FirebaseUser user){
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email", user.getEmail());
+        editor.putString("userID",user.getUid());
     }
 
 }

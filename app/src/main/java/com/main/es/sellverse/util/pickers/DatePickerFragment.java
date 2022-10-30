@@ -3,22 +3,35 @@ package com.main.es.sellverse.util.pickers;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.DatePicker;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.main.es.sellverse.R;
+import com.main.es.sellverse.add.AddPublicationActivity;
+import com.main.es.sellverse.util.datasavers.TemporalTimeSaver;
 
 import java.util.Calendar;
 
 public class DatePickerFragment extends DialogFragment  implements DatePickerDialog.OnDateSetListener {
+    private EditText e;
 
+    public DatePickerFragment(EditText et) {
+        e = et;
+    }
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+        e.setText(year+":"+
+                month+":"+dayOfMonth);
+        TemporalTimeSaver.getInstance().year=year;
+        TemporalTimeSaver.getInstance().month=month;
+        TemporalTimeSaver.getInstance().day=dayOfMonth;
 
     }
 
