@@ -705,6 +705,7 @@ public class AddPublicationActivity extends AppCompatActivity{
                 Integer.parseInt(maxHours.getText().toString()),
                 Integer.parseInt(maxMinutes.getText().toString())
         ));
+        auctionToAdd.setUserId(getUserId());
 
         if(counter!=0)
             finish();
@@ -712,6 +713,11 @@ public class AddPublicationActivity extends AppCompatActivity{
             counter++;
 
 
+    }
+
+    private String getUserId() {
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        return preferences.getString("userID","");
     }
 
     @Override
@@ -753,8 +759,8 @@ public class AddPublicationActivity extends AppCompatActivity{
         nameOfImage= HashGenerator.getSHA256(nameOfImage);
 
 
-        nameOfImage+=HashGenerator.getSHA256(auctionToAdd.getDescription()
-                +auctionToAdd.getTitle());
+        nameOfImage+=HashGenerator.getSHA256(auctionToAdd.getDescription().trim()
+                +auctionToAdd.getTitle().trim());
         for(int i =0;i<listOfBitmap.size();i++){
             Uri uri = getUriFromBitmap(listOfBitmap.get(i));
             nameOfImage+=i;
