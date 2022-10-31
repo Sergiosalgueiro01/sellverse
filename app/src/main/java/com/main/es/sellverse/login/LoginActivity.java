@@ -209,6 +209,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("email", user.getEmail());
         editor.putString("userID",user.getUid());
+        editor.commit();
     }
 
 }
