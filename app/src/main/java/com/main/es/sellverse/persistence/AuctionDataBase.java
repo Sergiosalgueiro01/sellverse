@@ -48,10 +48,8 @@ public class AuctionDataBase {
 
                     String s = uri.toString();
                     TemporalStringSaver.getInstance().list.add(s);
-                    System.out.println(uri.toString());
                 }
 
-                // System.out.println(uri.toString());
             }
 
         });
@@ -73,6 +71,7 @@ public class AuctionDataBase {
                     auction.setCurrentPrice(Double.parseDouble(query.get("currentPrice").toString()));
                     auction.setStartTime(DateConvertionUtil.unconvert(query.getString("startTime")));
                     auction.setEndTime(DateConvertionUtil.unconvert(query.getString("endTime")));
+                    auction.setUserId(query.getString("userId"));
                     HashMap<String,Object>list = (HashMap<String, Object>) query.get("imagesUrls");
                     List<String>urls=new ArrayList<>();
                   list.forEach((s, o) ->
@@ -82,7 +81,6 @@ public class AuctionDataBase {
                     TemporalAuctionSaver.getInstance().auctions.add(auction);
 
                 }
-                System.out.println(TemporalAuctionSaver.getInstance().auctions);
             }
 
         });

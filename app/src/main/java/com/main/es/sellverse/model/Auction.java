@@ -137,6 +137,7 @@ public class Auction {
         result.put("endTime",DateConvertionUtil.convert(endTime));
         result.put("imagesUrls",getUrls());
         result.put("currentPrice",getCurrentPrice());
+        result.put("userId",getUserId());
         return result;
     }
     private  Map<String, Object> getUrls(){

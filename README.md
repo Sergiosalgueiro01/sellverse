@@ -16,7 +16,8 @@ Related work issues
 --------
 We decided to control the tasks in an application that provides us with a useful kanbam called Trello.<br>
 The tasks for each sprint are detailed in [Trello kamban](https://trello.com/w/sellverse) <br>
-[First Sprint tasks](https://trello.com/b/wQDpIQoC/primer-sprint-)
+[First Sprint tasks](https://trello.com/b/wQDpIQoC/primer-sprint-)<br>
+[Second Sprint tasks](https://trello.com/b/8aMtPC2t/segundo-sprint)
 
 Hight level requirements Sellverse app
 -----
