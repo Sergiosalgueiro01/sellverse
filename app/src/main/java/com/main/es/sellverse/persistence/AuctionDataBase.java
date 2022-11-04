@@ -74,7 +74,7 @@ public class AuctionDataBase {
                     auction.setUserId(query.getString("userId"));
                     HashMap<String,Object>list = (HashMap<String, Object>) query.get("imagesUrls");
                     List<String>urls=new ArrayList<>();
-                  list.forEach((s, o) ->
+                    list.forEach((s, o) ->
                           urls.add(o.toString()));
 
                     auction.setImagesUrls(urls);
