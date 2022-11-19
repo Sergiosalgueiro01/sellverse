@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalUserSaver;
+import com.main.es.sellverse.util.listeners.SelectListener;
 
 import java.util.List;
 
@@ -24,7 +26,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     LayoutInflater inflater;
 
     public ChatAdapter(Context context, List<Chat> chats){
-
         this.context = context;
         this.chats = chats;
     }
@@ -39,6 +40,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         final TextView mensajeMensaje;
         final CircleImageView image;
         final TextView horaMensaje;
+        final CardView cardView;
 
         public ViewHolder(View view) {
             super(view);
@@ -46,6 +48,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             this.mensajeMensaje =  view.findViewById(R.id.mensajeMensaje);
             this.image =  view.findViewById(R.id.fotoPerfilMensaje);
             this.horaMensaje = view.findViewById(R.id.horaMensaje);
+            this.cardView = view.findViewById(R.id.chatContainer);
             // Define click listener for the ViewHolder's View
 
         }
@@ -68,7 +71,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("PRUEBA DE CLICK");
+            }
+        });
         Chat chat = chats.get(position);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
