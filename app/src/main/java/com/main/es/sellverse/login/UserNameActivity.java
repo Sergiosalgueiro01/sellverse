@@ -1,6 +1,8 @@
 package com.main.es.sellverse.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.home.HomeActivity;
 import com.main.es.sellverse.persistence.UserDataBase;
@@ -34,7 +36,7 @@ public class UserNameActivity extends AppCompatActivity {
 
     private void checkUsername() {
         SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        String email=preferences.getString("email","");
+        String id= FirebaseAuth.getInstance().getCurrentUser().getUid();
         EditText et = findViewById(R.id.etUsername);
         String s = et.getText().toString();
         if(s.trim().isEmpty()){
@@ -47,7 +49,7 @@ public class UserNameActivity extends AppCompatActivity {
         }
         else {
             preferences.edit().putString("username",s).commit();
-            UserDataBase.addUsername(s, email);
+            UserDataBase.addUsername(s, id);
             Intent intent= new Intent(this, HomeActivity.class);
             startActivity(intent);
             finish();

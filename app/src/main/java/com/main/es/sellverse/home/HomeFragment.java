@@ -23,11 +23,13 @@ import android.widget.Toast;
 
 
 import com.main.es.sellverse.R;
+import com.main.es.sellverse.auction.AuctionInfoActivity;
 import com.main.es.sellverse.databinding.FragmentHomeBinding;
 import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.GridAdapter;
 import com.main.es.sellverse.persistence.AuctionDataBase;
 import com.main.es.sellverse.search.SearchActivity;
+import com.main.es.sellverse.util.datasavers.TemporalAuctionSaver;
 import com.main.es.sellverse.util.tasks.RetrieveAuctionsTask;
 
 import java.util.List;
@@ -86,6 +88,9 @@ public class HomeFragment extends Fragment {
         g.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TemporalAuctionSaver.getInstance().auction=auctions.get(position);
+                Intent intent=new Intent(getContext(),AuctionInfoActivity.class);
+                startActivity(intent);
                 Toast.makeText(requireActivity(),"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
             }
         });

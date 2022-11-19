@@ -48,16 +48,16 @@ public class UserDataBase {
         return false;
 
     }
-    public static void addUsername(String username,String email){
+    public static void addUsername(String username,String id){
         HashMap<String, Object> result = new HashMap<>();
         result.put("username",username);
-        dbFirestore.collection("usernames").document(email).set(
+        dbFirestore.collection("usernames").document(id).set(
                 result
         );
     }
-    public static void  checkIfUserHasUsername(String email, Activity activity){
+    public static void  checkIfUserHasUsername(String id, Activity activity){
 
-         dbFirestore.collection("usernames").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+         dbFirestore.collection("usernames").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Intent intent;

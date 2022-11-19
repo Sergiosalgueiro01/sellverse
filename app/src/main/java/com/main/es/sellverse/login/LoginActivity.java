@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
         addToPrefs(user,preferences);
         if(user!=null){
 
-            UserDataBase.checkIfUserHasUsername(user.getEmail(),this);
+            UserDataBase.checkIfUserHasUsername(user.getUid(),this);
 
         }
 
