@@ -9,6 +9,7 @@ import java.util.List;
 public class TemporalAuctionSaver {
     private static TemporalAuctionSaver instance;
     public List<Auction> auctions = new ArrayList<>();
+    public Auction auction;
 
     public static TemporalAuctionSaver getInstance() {
         if (instance == null) {
