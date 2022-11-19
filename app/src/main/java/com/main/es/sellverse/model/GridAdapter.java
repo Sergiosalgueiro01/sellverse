@@ -49,7 +49,6 @@ public class GridAdapter extends BaseAdapter {
         return 0;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment {
 
     public void setUpGrid(List<Auction> auctions){
         GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctions);
-        GridView g =  requireActivity().findViewById(R.id.gridViewCatalog);
+        GridView g =  getActivity().findViewById(R.id.gridViewCatalog);
         g.setAdapter(gridAdapter);
         g.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
