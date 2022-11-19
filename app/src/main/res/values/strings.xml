@@ -65,6 +65,12 @@
     <string name="txtUsername">Username</string>
     <string name="btnResetPassword">Forgot your password?</string>
     <string name="btnResetPsw">Reset password</string>
-
+    <string name="select_your_username">Write your new username</string>
+    <string name="save">Save</string>
+    <string name="empty_username">Username cannot be empty</string>
+    <string name="repeated_username">There is other user with that username</string>
+    <string name="welcome">Welcome to Sellverse!!!</string>
+    <string name="lets_start">Lets start</string>
+    <string name="log_out">Log out</string>
 
 </resources>

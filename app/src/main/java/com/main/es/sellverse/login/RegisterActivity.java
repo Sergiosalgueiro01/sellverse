@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // signUpEmailPassword();
+                signUpEmailPassword();
             }
         });
     }
@@ -55,18 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.txtEmailR);
         String email = txtEmail.getText().toString();
         TextView txtPasword = findViewById(R.id.txtPasswordR);
-        String password = txtPasword.getText().toString();
-        TextView txtUsername = findViewById(R.id.txtUsername);
-        String username = txtUsername.getText().toString();
-        TextView txtPhoneNumber = findViewById(R.id.txtPhoneNumber);
-        String phone_number = txtPhoneNumber.getText().toString();
-        TextView txtName = findViewById(R.id.txtNameR);
-        String name = txtName.getText().toString();
-        TextView txtSurname = findViewById(R.id.txtSurnameR);
-        String surname = txtSurname.getText().toString();
 
         if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()
-            && !txtUsername.getText().toString().isEmpty() && !txtPhoneNumber.getText().toString().isEmpty()) {
+            ) {
             myAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPasword.getText().toString()).addOnCompleteListener(this,
                     new OnCompleteListener<AuthResult>() {
                         @Override
@@ -75,11 +66,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 String id = myAuth.getCurrentUser().getUid();
                                 Map<String, Object> map = new HashMap<>();
                                 map.put("id", id);
-                                map.put("name", username);
-                                map.put("name", name);
-                                map.put("surname", surname);
                                 map.put("email", email);
-                                map.put("phone_number", phone_number);
+
 
                                 mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
