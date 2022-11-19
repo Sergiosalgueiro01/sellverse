@@ -30,6 +30,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.home.HomeActivity;
+import com.main.es.sellverse.persistence.UserDataBase;
+import com.main.es.sellverse.util.datasavers.TemporalBooleanChecker;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -92,12 +94,12 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
                                     FirebaseUser user = myAuth.getCurrentUser();
-                                    if (user.isEmailVerified()) {
+                                   // if (user.isEmailVerified()) {
                                         updateUI(user);
-                                    } else{
-                                        user.sendEmailVerification();
-                                        Toast.makeText(LoginActivity.this, "An email has been sent to you to verify your user name.", Toast.LENGTH_LONG).show();
-                                    }
+                                    //} else{
+                                     //   user.sendEmailVerification();
+                                     //   Toast.makeText(LoginActivity.this, "An email has been sent to you to verify your user name.", Toast.LENGTH_LONG).show();
+                                   // }
                             } else {
                                 showAlert();
                             }
@@ -195,17 +197,18 @@ public class LoginActivity extends AppCompatActivity {
     // [END signin]
 
     private void updateUI(FirebaseUser user) {
-        addToPrefs(user);
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        addToPrefs(user,preferences);
         if(user!=null){
-            Intent intent= new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
+
+            UserDataBase.checkIfUserHasUsername(user.getUid(),this);
+
         }
 
 
     }
-    private void addToPrefs(FirebaseUser user){
-        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+    private void addToPrefs(FirebaseUser user,SharedPreferences preferences){
+
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("email", user.getEmail());
         editor.putString("userID",user.getUid());

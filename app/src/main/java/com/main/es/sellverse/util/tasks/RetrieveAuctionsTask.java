@@ -30,7 +30,6 @@ public class RetrieveAuctionsTask extends AsyncTask<HomeFragment, Void, List<Auc
     protected void onPostExecute(List<Auction> a){
 
         auctions = TemporalAuctionSaver.getInstance().auctions;
-        System.out.println(a);
         home.setUpGrid(auctions);
     }
 

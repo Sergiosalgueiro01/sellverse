@@ -7,6 +7,7 @@ import com.main.es.sellverse.util.date.DateConvertionUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Auction {
     private Date startTime;
     private Date endTime;
     private List<String> imagesUrls;
-    private List<String> bids;
+    private List<String> bids = new ArrayList<>();
     private String userId;
 
     public Auction() {

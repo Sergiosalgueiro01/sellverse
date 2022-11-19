@@ -65,6 +65,21 @@
     <string name="txtUsername">Username</string>
     <string name="btnResetPassword">Forgot your password?</string>
     <string name="btnResetPsw">Reset password</string>
-
-
+    <string name="select_your_username">Write your new username</string>
+    <string name="save">Save</string>
+    <string name="empty_username">Username cannot be empty</string>
+    <string name="repeated_username">There is other user with that username</string>
+    <string name="welcome">Welcome to Sellverse!!!</string>
+    <string name="lets_start">Lets start</string>
+    <string name="log_out">Log out</string>
+    <string name="current_price">Current Price: </string>
+    <string name="number_of_bids">Number of Bids: </string>
+    <string name="time_left">Time left:</string>
+    <string name="it_started_on">Started on:</string>
+    <string name="make_a_bid">Make a bid:</string>
+    <string name="seller">Seller:</string>
+    <string name="startAChat">Start a chat</string>
+    <string name="enter_the_amount">Enter the amount to bid:</string>
+    <string name="make_the_bid">Make the bid</string>
+    
 </resources>
