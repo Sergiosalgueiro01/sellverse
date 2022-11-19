@@ -1,16 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.ProfileFragment"
+    android:background="@color/light_grey"
+    tools:context=".home.ProfileFragment">
 
-    >
     <include
         android:id="@+id/toolbarProfile"
         layout="@layout/profile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarProfile"
+        android:backgroundTint="@color/light_grey">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#5CC09F">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/iv_profile"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/btn_profile"
+                    android:backgroundTint="@color/white">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/txtUsernameProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_profile"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:hint="Loading..."
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/white">
+
+                </TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="15dp"
+                android:layout_margin="15dp"
+                android:background="@color/white">
+
+                <!-- Complete Name -->
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/ic_profile"
+                    android:backgroundTint="#5CC09F"
+                    android:background="@drawable/btn_profile">
+
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/txtShowFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/ic_profile"
+                    android:layout_marginStart="50dp"
+                    android:hint="Loading..."
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/txtShowFullName"
+                    android:background="@android:color/darker_gray"
+                    android:id="@+id/divider_name">
+
+                </View>
+
+                <!-- Email -->
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/ic_email"
+                    android:layout_below="@+id/divider_name"
+                    android:background="@drawable/btn_message"
+                    android:backgroundTint="#5CC09F"
+                    android:layout_marginTop="20dp">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtEmailProfile"
+                    android:layout_alignStart="@id/ic_email"
+                    android:hint="Loading..."
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/divider_name"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <View
+                    android:id="@+id/divider_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/txtEmailProfile"
+                    android:background="@android:color/darker_gray">
+
+                </View>
+
+                <!-- Phone Number -->
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/ic_phone"
+                    android:layout_below="@+id/divider_email"
+                    android:background="@mipmap/phone"
+                    android:backgroundTint="#5CC09F"
+                    android:layout_marginTop="20dp">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtPhoneProfile"
+                    android:layout_alignStart="@id/ic_profile"
+                    android:hint="Loading..."
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/divider_email"
+                    android:textSize="18sp">
+
+                </TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@id/txtPhoneProfile"
+                    android:background="@android:color/darker_gray"
+                    android:id="@+id/divider_phone">
+
+                </View>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 
