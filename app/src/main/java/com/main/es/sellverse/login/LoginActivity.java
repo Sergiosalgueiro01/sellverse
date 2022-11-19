@@ -22,16 +22,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.home.HomeActivity;
 import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalBooleanChecker;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -93,13 +99,13 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                    FirebaseUser user = myAuth.getCurrentUser();
-                                   // if (user.isEmailVerified()) {
-                                        updateUI(user);
-                                    //} else{
-                                     //   user.sendEmailVerification();
-                                     //   Toast.makeText(LoginActivity.this, "An email has been sent to you to verify your user name.", Toast.LENGTH_LONG).show();
-                                   // }
+                                FirebaseUser user = myAuth.getCurrentUser();
+                                // if (user.isEmailVerified()) {
+                                updateUI(user);
+                                //} else{
+                                //   user.sendEmailVerification();
+                                //   Toast.makeText(LoginActivity.this, "An email has been sent to you to verify your user name.", Toast.LENGTH_LONG).show();
+                                // }
                             } else {
                                 showAlert();
                             }
@@ -131,8 +137,31 @@ public class LoginActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
         myAuth=FirebaseAuth.getInstance();
+
     }
 
+    private void createUser() {
+        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+        String id = myAuth.getCurrentUser().getUid();
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("email", "Email");
+        map.put("phone_number", "Phone");
+        map.put("name", "Name");
+        map.put("surname", "Surname");
+        mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                FirebaseUser user = myAuth.getCurrentUser();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Error to save", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
 
     // [START on_start_check_user]
@@ -159,6 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
+
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
@@ -178,6 +208,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = myAuth.getCurrentUser();
+                            createUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
