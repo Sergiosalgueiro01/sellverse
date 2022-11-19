@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -47,20 +48,30 @@ public class ChatFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
+        setUpChats();
         //utiliza aqui el view hijo puta, no existe en fragmentos el findviewById pero puedes hacer el view.findViewbyId
     }
 
     public void setUpChats(){
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        ChatDataBase.getChatsByUser(userID, this);
 
-        ChatDataBase.getChatsByUser(userID);
+    }
+
+    public void method(){
+
+
+
+
         List<Chat> chats =  TemporalChatsSaver.getInstance().chats;
-
+        System.out.println("A " + chats.size());
         ChatAdapter chatAdapter = new ChatAdapter(requireActivity(), chats);
         RecyclerView r =  requireActivity().findViewById(R.id.rvChats);
-        r.setAdapter(chatAdapter);
 
 
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        r.setLayoutManager(llm);
+        r.setAdapter( chatAdapter );
     }
 }

@@ -13,7 +13,6 @@ import com.main.es.sellverse.R;
 import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalUserSaver;
 
-import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -25,6 +24,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     LayoutInflater inflater;
 
     public ChatAdapter(Context context, List<Chat> chats){
+
         this.context = context;
         this.chats = chats;
     }
@@ -55,6 +55,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
+
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.chat_cardview, viewGroup, false);
 
@@ -71,23 +72,37 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         Chat chat = chats.get(position);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        if(userID.equals(chat.getBuyerId())){
-            UserDataBase.getUserById(chat.getSellerId());
-        }else{
-            UserDataBase.getUserById(chat.getBuyerId());
-        }
-        User u = TemporalUserSaver.getInstance().user;
 
-        viewHolder.nombreMensaje.setText(u.getEmail());
-        ChatMessage last = chat.getMessages().get(chat.getMessages().size()-1);
-        viewHolder.horaMensaje.setText(last.getTime().getHours() + ":" + last.getTime().getMinutes());
-        viewHolder.mensajeMensaje.setText(chat.getLastMessage());
-        viewHolder.image.setImageResource(R.drawable.logo_martillo);
+        if(userID.equals(chat.getBuyerId())){
+            UserDataBase.getUserById(chat.getSellerId(),this, viewHolder, chat);
+        }else{
+            UserDataBase.getUserById(chat.getBuyerId(), this, viewHolder, chat);
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return chats.size();
+    }
+
+    public void method(ViewHolder viewHolder, Chat chat ){
+        User u = TemporalUserSaver.getInstance().user;
+
+        viewHolder.nombreMensaje.setText(u.getEmail());
+        ChatMessage last;
+        if(!chat.getMessages().isEmpty()) {
+            last = chat.getMessages().get(chat.getMessages().size() - 1);
+            String hour = last.getTime().getHours() + "";
+            String minutes = last.getTime().getMinutes() + "";
+            if(hour.length() == 1)
+                hour = "0"+hour;
+            if(minutes.length() == 1)
+                minutes = "0"+minutes;
+            viewHolder.horaMensaje.setText( hour + ":" + minutes);
+        }
+        viewHolder.mensajeMensaje.setText(chat.getLastMessage());
+        viewHolder.image.setImageResource(R.drawable.logo_martillo);
     }
 }
