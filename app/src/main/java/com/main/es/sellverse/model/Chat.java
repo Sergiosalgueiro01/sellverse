@@ -8,12 +8,14 @@ public class Chat {
     private String id;
     private String sellerId;
     private String buyerId;
+    private String lastMessage;
     private List<ChatMessage> messages;
 
-    public Chat(String id, String sellerId, String buyerId, List<ChatMessage> messages) {
+    public Chat(String id, String sellerId, String buyerId,String last, List<ChatMessage> messages) {
         this.id = id;
         this.sellerId = sellerId;
         this.buyerId = buyerId;
+        this.lastMessage = last;
         this.messages = messages;
     }
 
@@ -50,6 +52,14 @@ public class Chat {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
     }
 
     @Override

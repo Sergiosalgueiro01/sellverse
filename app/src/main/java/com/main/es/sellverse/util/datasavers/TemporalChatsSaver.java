@@ -1,20 +1,19 @@
 package com.main.es.sellverse.util.datasavers;
 
-
 import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.Chat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TemporalAuctionSaver {
+public class TemporalChatsSaver {
 
-    private static TemporalAuctionSaver instance;
-    public List<Auction> auctions = new ArrayList<>();
+    private static TemporalChatsSaver instance;
+    public List<Chat> chats = new ArrayList<>();
 
-    public static TemporalAuctionSaver getInstance() {
+    public static TemporalChatsSaver getInstance() {
         if (instance == null) {
-            instance = new TemporalAuctionSaver();
+            instance = new TemporalChatsSaver();
         }
         return instance;
     }

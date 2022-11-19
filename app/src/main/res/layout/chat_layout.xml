@@ -12,11 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/fotoPerfil"
-            android:layout_width="48sp"
-            android:layout_height="48sp"
-            android:src="@mipmap/ic_launcher" />
+
         <TextView
             android:id="@+id/nombre"
             android:layout_width="wrap_content"
@@ -34,13 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/btnEnviarFoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_menu_gallery"
-            android:layout_gravity="center"
-            />
+
         <EditText
             android:id="@+id/txtMensaje"
             android:layout_width="match_parent"

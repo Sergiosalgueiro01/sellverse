@@ -10,6 +10,7 @@ import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.Chat;
 import com.main.es.sellverse.model.ChatMessage;
 import com.main.es.sellverse.util.datasavers.TemporalAuctionSaver;
+import com.main.es.sellverse.util.datasavers.TemporalChatsSaver;
 import com.main.es.sellverse.util.date.DateConvertionUtil;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class ChatDataBase {
 
     public static void getChatsByUser(String userId){
 
-        TemporalAuctionSaver.getInstance().chats.clear();
+        TemporalChatsSaver.getInstance().chats.clear();
         Task<QuerySnapshot> collection = dbFirestore.collection("chats")
                 .whereEqualTo("seller",userId)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -35,13 +36,14 @@ public class ChatDataBase {
                     chat.setId(query.get("id").toString());
                     chat.setBuyerId(query.get("buyer").toString());
                     chat.setSellerId(query.get("seller").toString());
+                    chat.setLastMessage(query.get("lastmessage").toString());
                     HashMap<String,Object> list = (HashMap<String, Object>) query.get("messages");
                     List<String> messagesIds = new ArrayList<>();
                     list.forEach((s, o) -> messagesIds.add(o.toString()));
 
                     chat.setMessages(getMessagesByIds(messagesIds));
 
-                    TemporalAuctionSaver.getInstance().chats.add(chat);
+                    TemporalChatsSaver.getInstance().chats.add(chat);
                 }
             }
         });
@@ -56,13 +58,14 @@ public class ChatDataBase {
                             chat.setId(query.get("id").toString());
                             chat.setBuyerId(query.get("buyer").toString());
                             chat.setSellerId(query.get("seller").toString());
+                            chat.setLastMessage(query.get("lastmessage").toString());
                             HashMap<String,Object> list = (HashMap<String, Object>) query.get("messages");
                             List<String> messagesIds = new ArrayList<>();
                             list.forEach((s, o) -> messagesIds.add(o.toString()));
 
                             chat.setMessages(getMessagesByIds(messagesIds));
 
-                            TemporalAuctionSaver.getInstance().chats.add(chat);
+                            TemporalChatsSaver.getInstance().chats.add(chat);
 
                         }
                     }
