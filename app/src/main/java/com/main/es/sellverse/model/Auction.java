@@ -25,7 +25,7 @@ public class Auction {
     private Date startTime;
     private Date endTime;
     private List<String> imagesUrls;
-    private List<String> bids = new ArrayList<>();
+    private List<Bid> bids = new ArrayList<>();
     private String userId;
 
     public Auction() {
@@ -33,7 +33,7 @@ public class Auction {
 
     public Auction(String id, String title, String description,
                    double initialPrice, double currentPrice, Date startTime,
-                   Date endTime, List<String> imagesUrls, List<String> bids, String userId) {
+                   Date endTime, List<String> imagesUrls, List<Bid> bids, String userId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -78,7 +78,7 @@ public class Auction {
         return imagesUrls;
     }
 
-    public List<String> getBids() {
+    public List<Bid> getBids() {
         return bids;
     }
 
@@ -114,7 +114,7 @@ public class Auction {
         this.imagesUrls = imagesUrls;
     }
 
-    public void setBids(List<String> bids) {
+    public void setBids(List<Bid> bids) {
         this.bids = bids;
     }
 
@@ -139,8 +139,21 @@ public class Auction {
         result.put("imagesUrls",getUrls());
         result.put("currentPrice",getCurrentPrice());
         result.put("userId",getUserId());
+        result.put("bids",getBidsOnAMap());
         return result;
     }
+
+    private Map<String, Object> getBidsOnAMap() {
+        HashMap<String,Object>bids = new HashMap<>();
+        int i=0;
+        for(Bid bid:getBids()){
+            bids.put(i+"",bid.toMap());
+            i++;
+        }
+        return bids;
+    }
+
+
     private  Map<String, Object> getUrls(){
         HashMap<String,Object>urls = new HashMap<>();
         int i=0;

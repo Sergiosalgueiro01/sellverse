@@ -4,7 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -73,8 +75,8 @@ public class RegisterActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         FirebaseUser user = myAuth.getCurrentUser();
-                                        user.sendEmailVerification();
-                                        Intent intent = new Intent(RegisterActivity.this, VerifyActivity.class);
+                                        addToSharedPreferences(user);
+                                        Intent intent = new Intent(RegisterActivity.this, UserNameActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -90,6 +92,14 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    private void addToSharedPreferences(FirebaseUser user) {
+        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email", user.getEmail());
+        editor.putString("userID",user.getUid());
+        editor.commit();
     }
 
     private void showAlert(){
