@@ -1,6 +1,8 @@
 package com.main.es.sellverse.auction;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.main.es.sellverse.R;
@@ -16,13 +18,16 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import android.annotation.SuppressLint;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 import cn.iwgang.countdownview.CountdownView;
@@ -36,6 +41,7 @@ public class AuctionInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auction_info);
+        setUpMenu();
         setUpSlider();
         setUpTitle();
         setUpPrice();
@@ -47,6 +53,26 @@ public class AuctionInfoActivity extends AppCompatActivity {
         setUpAmountToBid();
         setUpBtnMakeTheBid();
 
+    }
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void setUpMenu() {
+        Toolbar toolbar= findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.make_a_bild_add);
+        toolbar.setBackgroundTintList(ColorStateList.valueOf(getColor(R.color.toolbar_info)));
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     private void setUpBtnMakeTheBid() {

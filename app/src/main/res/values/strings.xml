@@ -83,5 +83,5 @@
     <string name="make_the_bid">Make the bid</string>
     <string name="price_cannot_be_empty">Price cannot be empty</string>
     <string name="price_is_lower_than_current_price">Amount is lower than current price</string>
-    
+    <string name="make_a_bild_add">Make a bild</string>
 </resources>

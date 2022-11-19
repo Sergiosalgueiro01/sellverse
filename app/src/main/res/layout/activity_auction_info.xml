@@ -14,20 +14,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".auction.AuctionInfoActivity">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/simple_toolbar"
+
+            />
 
         <TextView
             android:id="@+id/tvTitleAuction"
             android:layout_width="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_height="wrap_content"
-            android:text="title"
+            android:layout_marginStart="15dp"
             android:fontFamily="sans-serif"
+            android:text="title"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.024" />
+            app:layout_constraintTop_toTopOf="@id/toolbar"
+            app:layout_constraintVertical_bias="0.062" />
 
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/sliderView"
