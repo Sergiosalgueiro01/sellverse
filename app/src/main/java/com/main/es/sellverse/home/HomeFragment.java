@@ -9,13 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -57,6 +60,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.view = view;
         setUpAuctionCatalog();
+        setUpSwiperRefresh();
         ActionMenuItemView filterText = view.findViewById(R.id.filters);
         filterText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,12 +80,30 @@ public class HomeFragment extends Fragment {
         //utiliza aqui el view hijo puta, no existe en fragmentos el findviewById pero puedes hacer el view.findViewbyId
     }
 
+    private void setUpSwiperRefresh() {
+        SwipeRefreshLayout s = view.findViewById(R.id.swipe);
+
+        s.setEnabled(true);
+
+
+
+
+        s.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setUpAuctionCatalog();
+                s.setRefreshing(false);
+            }
+        });
+    }
+
     private void setUpAuctionCatalog() {
         new RetrieveAuctionsTask().execute(this);
 
     }
 
     public void setUpGrid(List<Auction> auctions){
+
         GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctions);
         GridView g =  getActivity().findViewById(R.id.gridViewCatalog);
         g.setAdapter(gridAdapter);
@@ -94,6 +116,16 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(requireActivity(),"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setUpAuctionCatalog();
+
+
+
     }
 
     private void setUpFilterActivity() {
