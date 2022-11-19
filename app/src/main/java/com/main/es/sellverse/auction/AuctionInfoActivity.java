@@ -1,8 +1,13 @@
 package com.main.es.sellverse.auction;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.model.Auction;
+import com.main.es.sellverse.model.Bid;
+import com.main.es.sellverse.persistence.AuctionDataBase;
+import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalAuctionSaver;
 import com.main.es.sellverse.util.date.DateConvertionUtil;
 import com.main.es.sellverse.util.slider.SliderAdapter;
@@ -12,9 +17,13 @@ import com.smarteist.autoimageslider.SliderView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Date;
+import java.util.UUID;
 
 import cn.iwgang.countdownview.CountdownView;
 
@@ -34,12 +43,71 @@ public class AuctionInfoActivity extends AppCompatActivity {
         setUpNumberOfBilds();
         setUpCounter();
         setUpStartDate();
+        setUpUsername();
+        setUpAmountToBid();
+        setUpBtnMakeTheBid();
+
     }
+
+    private void setUpBtnMakeTheBid() {
+        Button b = findViewById(R.id.btnMakeTheBid);
+        TextView tv=findViewById(R.id.etNumber);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(tv.getText().toString().isEmpty()){
+                    tv.requestFocus();
+                    tv.setError(getString(R.string.price_cannot_be_empty));
+                }
+               else if(Double.parseDouble(tv.getText().toString())<= auction.getCurrentPrice()){
+                    tv.requestFocus();
+                    tv.setError(getString(R.string.price_is_lower_than_current_price));
+                }
+               else{
+                   makeTheBid(Double.parseDouble(tv.getText().toString()));
+                }
+
+            }
+        });
+    }
+
+    private void makeTheBid(double amount) {
+        String id=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Date date = new Date();
+        auction.setCurrentPrice(amount);
+        Bid bid=new Bid();
+        bid.setAmount(amount);
+        bid.setId(UUID.randomUUID().toString());
+        bid.setDate(date);
+        bid.setUserId(id);
+        auction.getBids().add(bid);
+        Date enDate=auction.getEndTime();
+        enDate.setYear(enDate.getYear()+1900);
+        auction.setEndTime(enDate);
+        Date startDate=auction.getStartTime();
+        startDate.setYear(startDate.getYear()+1900);
+        auction.setStartTime(startDate);
+        AuctionDataBase.createAction(auction);
+        finish();
+    }
+
+    private void setUpAmountToBid() {
+        EditText et = findViewById(R.id.etNumber);
+        et.setHint("Min: "+auction.getCurrentPrice());
+
+    }
+
 
     @SuppressLint("SetTextI18n")
     private void setUpStartDate() {
         TextView tv = findViewById(R.id.tvStartDateAction);
-        tv.setText(tv.getText()+" "+ DateConvertionUtil.convert(auction.getStartTime()));
+        Date date = auction.getStartTime();
+        date.setYear(date.getYear()+1900);
+
+        tv.setText(tv.getText()+" "+ DateConvertionUtil.convert(date));
+        date.setYear(date.getYear()-1900);
+        date.setMonth(date.getMonth()-1);
+
     }
 
     private void setUpCounter() {
@@ -82,4 +150,10 @@ public class AuctionInfoActivity extends AppCompatActivity {
         sliderView.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         sliderView.startAutoCycle();
     }
+    private void setUpUsername() {
+        String id = auction.getUserId();
+        TextView tv=findViewById(R.id.tvSell);
+        UserDataBase.addUsernameToTextView(id,tv);
+    }
+
 }

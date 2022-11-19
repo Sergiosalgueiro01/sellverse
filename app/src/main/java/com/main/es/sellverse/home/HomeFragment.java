@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void setUpGrid(List<Auction> auctions){
+
         GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctions);
         GridView g =  requireActivity().findViewById(R.id.gridViewCatalog);
         g.setAdapter(gridAdapter);
@@ -94,6 +95,16 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(requireActivity(),"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        setUpAuctionCatalog();
+
+
+
     }
 
     private void setUpFilterActivity() {

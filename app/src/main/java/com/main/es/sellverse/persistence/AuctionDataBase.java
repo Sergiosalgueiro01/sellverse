@@ -9,6 +9,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.main.es.sellverse.model.Auction;
+import com.main.es.sellverse.model.Bid;
 import com.main.es.sellverse.util.datasavers.TemporalAuctionSaver;
 import com.main.es.sellverse.util.datasavers.TemporalStringSaver;
 import com.main.es.sellverse.util.datasavers.TemporalUriSaver;
@@ -57,10 +58,11 @@ public class AuctionDataBase {
 
     }
     public static  void getAuctions() {
-        TemporalAuctionSaver.getInstance().auctions.clear();
+
         Task<QuerySnapshot> collection = dbFirestore.collection("auctions").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                TemporalAuctionSaver.getInstance().auctions.clear();
                 Auction auction;
                 for (QueryDocumentSnapshot query : queryDocumentSnapshots) {
                     auction= new Auction();
@@ -74,10 +76,13 @@ public class AuctionDataBase {
                     auction.setUserId(query.getString("userId"));
                     HashMap<String,Object>list = (HashMap<String, Object>) query.get("imagesUrls");
                     List<String>urls=new ArrayList<>();
-                  list.forEach((s, o) ->
+                    list.forEach((s, o) ->
                           urls.add(o.toString()));
-
                     auction.setImagesUrls(urls);
+                    HashMap<String,Object>list2=(HashMap<String, Object>) query.get("bids");
+                    List<Bid>bids=getBids((HashMap<String, Object>) query.get("bids"));
+                    auction.setBids(bids);
+
                     TemporalAuctionSaver.getInstance().auctions.add(auction);
 
                 }
@@ -89,7 +94,31 @@ public class AuctionDataBase {
         }
     }
 
+    private static List<Bid> getBids(HashMap<String, Object> bids) {
+        List<Bid> list = new ArrayList<>();
+        bids.forEach((s, o) ->{
+            HashMap<String,Object>bidHashed= (HashMap<String, Object>) o;
+            Bid bid=new Bid();
+            bidHashed.forEach((s1, o1) ->{
+
+                if(s1.equals("amount"))
+                    bid.setAmount((Double) o1);
+                else if(s1.equals("date"))
+                    bid.setDate(DateConvertionUtil.unconvert((String) o1));
+                else if(s1.equals("id"))
+                    bid.setId((String) o1);
+                else
+                    bid.setUserId((String) o1);
+
+            });
+            list.add(bid);
+        });
+        return list;
+    }
 
 
     }
+
+
+
 

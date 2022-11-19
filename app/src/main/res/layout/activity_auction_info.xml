@@ -184,14 +184,14 @@
 
     <TextView
         android:id="@+id/tvSell"
-        android:layout_width="150dp"
-        android:layout_height="33dp"
+        android:layout_width="171dp"
+        android:layout_height="39dp"
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif"
         android:text="@string/seller"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view3" />
 

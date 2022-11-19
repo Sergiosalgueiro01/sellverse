@@ -81,5 +81,7 @@
     <string name="startAChat">Start a chat</string>
     <string name="enter_the_amount">Enter the amount to bid:</string>
     <string name="make_the_bid">Make the bid</string>
+    <string name="price_cannot_be_empty">Price cannot be empty</string>
+    <string name="price_is_lower_than_current_price">Amount is lower than current price</string>
     
 </resources>
