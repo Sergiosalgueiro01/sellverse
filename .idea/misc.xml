@@ -13,34 +13,27 @@
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.1" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.125" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/drawable/ic_launcher_background.xml" value="0.125" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout-v28/activity_main.xml" value="0.33695652173913043" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_add_publication.xml" value="0.33" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_auction_info.xml" value="0.25" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_camera.xml" value="0.33" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_home.xml" value="0.3220108695652174" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_main.xml" value="0.3220108695652174" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_see_image.xml" value="0.3432971014492754" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/activity_user_name.xml" value="0.2774725274725275" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/catalog_toolbar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/fragment_profile.xml" value="0.2509057971014493" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/fragment_your_bids.xml" value="0.2509057971014493" />
+        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/fragment_home.xml" value="0.18" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/image_for_dialog.xml" value="0.3098958333333333" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/item_grid.xml" value="0.33" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/profile_toolbar.xml" value="0.365625" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/prueba.xml" value="0.33229166666666665" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/simple_toolbar.xml" value="0.321875" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/slider_item.xml" value="0.26145833333333335" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/layout/tool_bar_add_publication_activity.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/menu/catalog_bar.xml" value="0.3359375" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/menu/configuration_menu.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/menu/configurationmenu.xml" value="0.2861111111111111" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/menu/menu_check_publication.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/menu/nav_menu_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/menu/popup_add_publication_menu.xml" value="0.22604166666666667" />
-        <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/menu/popup_config.xml" value="0.365625" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/menu/simple_accept_menu.xml" value="0.3359375" />
         <entry key="..\:/Users/Usuario/AndroidStudioProjects/sellverse/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.116" />
         <entry key="..\:/Users/garci/Desktop/Uniovi/Cuarto/Primer Semestre/Software Para Dispositivos Moviles/Sellverse/app/src/main/res/drawable/bg_color.xml" value="0.186" />
@@ -75,6 +68,11 @@
         <entry key="..\:/Users/juann/AndroidStudioProjects/sellverse/app/src/main/res/menu/nav_menu_home.xml" value="0.3625" />
         <entry key="..\:/Users/juann/AndroidStudioProjects/sellverse/app/src/main/res/menu/navigation_icons.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/juann/AndroidStudioProjects/sellverse/app/src/main/res/menu/simple_accept_menu.xml" value="0.3625" />
+        <entry key="..\:/Users/juann/Desktop/uniovi.es/SDM/practicas/folder/app/src/main/res/layout/chat_cardview.xml" value="0.35804549283909015" />
+        <entry key="..\:/Users/juann/Desktop/uniovi.es/SDM/practicas/folder/app/src/main/res/layout/chat_layout.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/juann/Desktop/uniovi.es/SDM/practicas/folder/app/src/main/res/layout/fragment_chat.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/juann/Desktop/uniovi.es/SDM/practicas/folder/app/src/main/res/layout/fragment_home.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/juann/Desktop/uniovi.es/SDM/practicas/folder/app/src/main/res/layout/item_grid.xml" value="0.358695652173913" />
       </map>
     </option>
   </component>

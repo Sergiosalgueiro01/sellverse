@@ -1,12 +1,11 @@
 package com.main.es.sellverse.persistence;
 
+
+
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -14,18 +13,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.UploadTask;
 import com.main.es.sellverse.home.HomeActivity;
 import com.main.es.sellverse.login.UserNameActivity;
-import com.main.es.sellverse.model.Auction;
+import com.main.es.sellverse.model.Chat;
+import com.main.es.sellverse.model.ChatAdapter;
 import com.main.es.sellverse.util.datasavers.TemporalBooleanChecker;
-import com.main.es.sellverse.util.datasavers.TemporalStringSaver;
-import com.main.es.sellverse.util.hash.HashGenerator;
+import com.main.es.sellverse.model.User;
+import com.main.es.sellverse.util.datasavers.TemporalUserSaver;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
+
 
 public class UserDataBase {
     private static FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
@@ -98,5 +98,29 @@ public class UserDataBase {
         });
 
 
+    }
+    public static void createUser(User user){
+        dbFirestore.collection("user").document(user.getId()).set(user.toMap());
+    }
+
+    public static void getUserById(String id, ChatAdapter chatAdapter, ChatAdapter.ViewHolder viewHolder, Chat chat){
+        TemporalUserSaver.getInstance().user = null;
+
+        dbFirestore.collection("user").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                User user;
+
+                user = new User();
+                user.setId(documentSnapshot.get("id") +"");
+                user.setName(documentSnapshot.get("name")+"");
+                user.setSurname(documentSnapshot.get("surname")+"");
+                user.setEmail(documentSnapshot.get("email") +"");
+                user.setPhone_number(documentSnapshot.get("phone_number") +"");
+                TemporalUserSaver.getInstance().user = user;
+                chatAdapter.method(viewHolder, chat);
+            }
+        });
     }
 }
