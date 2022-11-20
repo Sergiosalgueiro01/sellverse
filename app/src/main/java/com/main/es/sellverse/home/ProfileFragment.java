@@ -130,6 +130,7 @@ public class ProfileFragment extends Fragment {
                                         @Override
                                         public void onSuccess(Object o) {
                                             Toast.makeText(getContext(), "Profile Update!", Toast.LENGTH_SHORT).show();
+                                            dbFirestore.batch().commit();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override

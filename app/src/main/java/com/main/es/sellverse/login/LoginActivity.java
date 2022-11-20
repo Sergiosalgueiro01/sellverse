@@ -140,30 +140,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void createUser() {
-        FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
-        String id = myAuth.getCurrentUser().getUid();
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("email", "Email");
-        map.put("phone_number", "Phone");
-        map.put("name", "Name");
-        map.put("surname", "Surname");
-        mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                FirebaseUser user = myAuth.getCurrentUser();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Error to save", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-
-
     // [START on_start_check_user]
     @Override
     public void onStart() {
@@ -208,7 +184,6 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = myAuth.getCurrentUser();
-                            createUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
