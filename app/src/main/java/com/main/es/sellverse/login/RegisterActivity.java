@@ -71,7 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 map.put("email", email);
                                 map.put("phone_number", "Phone");
                                 map.put("name", "Name");
-                                map.put("surname", "Surname");
 
                                 mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

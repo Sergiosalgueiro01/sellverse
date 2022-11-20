@@ -65,73 +65,76 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="15dp"
-                android:layout_margin="15dp"
+                android:padding="20dp"
+                android:layout_margin="20dp"
                 android:background="@color/white">
 
                 <!-- Complete Name -->
 
                 <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
                     android:id="@+id/ic_profile"
-                    android:backgroundTint="#5CC09F"
-                    android:background="@drawable/btn_profile">
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/btn_profile"
+                    android:backgroundTint="#5CC09F">
 
                 </ImageView>
 
-                <TextView
+                <EditText
                     android:id="@+id/txtShowFullName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignStart="@id/ic_profile"
                     android:layout_marginStart="50dp"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="Loading..."
                     android:textSize="18sp">
 
-                </TextView>
+                </EditText>
 
                 <View
+                    android:id="@+id/divider_name"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
                     android:layout_below="@id/txtShowFullName"
-                    android:background="@android:color/darker_gray"
-                    android:id="@+id/divider_name">
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/darker_gray">
 
                 </View>
 
                 <!-- Email -->
 
                 <ImageView
+                    android:id="@+id/ic_email"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:id="@+id/ic_email"
                     android:layout_below="@+id/divider_name"
+                    android:layout_marginTop="30dp"
                     android:background="@drawable/btn_message"
-                    android:backgroundTint="#5CC09F"
-                    android:layout_marginTop="20dp">
+                    android:backgroundTint="#5CC09F">
 
                 </ImageView>
 
-                <TextView
+                <EditText
+                    android:id="@+id/txtEmailProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txtEmailProfile"
+                    android:layout_below="@id/divider_name"
                     android:layout_alignStart="@id/ic_email"
-                    android:hint="Loading..."
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@id/divider_name"
+                    android:backgroundTint="@android:color/transparent"
+                    android:hint="Loading..."
                     android:textSize="18sp">
 
-                </TextView>
+                </EditText>
 
                 <View
                     android:id="@+id/divider_email"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_below="@id/txtEmailProfile"
                     android:background="@android:color/darker_gray">
 
@@ -146,27 +149,28 @@
                     android:layout_below="@+id/divider_email"
                     android:background="@mipmap/phone"
                     android:backgroundTint="#5CC09F"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="30dp">
 
                 </ImageView>
 
-                <TextView
+                <EditText
+                    android:id="@+id/txtPhoneProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/txtPhoneProfile"
+                    android:layout_below="@id/divider_email"
                     android:layout_alignStart="@id/ic_profile"
-                    android:hint="Loading..."
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="20dp"
-                    android:layout_below="@id/divider_email"
+                    android:hint="Loading..."
+                    android:backgroundTint="@android:color/transparent"
                     android:textSize="18sp">
 
-                </TextView>
+                </EditText>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_below="@id/txtPhoneProfile"
                     android:background="@android:color/darker_gray"
                     android:id="@+id/divider_phone">
@@ -179,6 +183,16 @@
 
     </ScrollView>
 
+    <Button
+        android:id="@+id/btnUpdateProfile"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Update Profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="#5CC09F"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
