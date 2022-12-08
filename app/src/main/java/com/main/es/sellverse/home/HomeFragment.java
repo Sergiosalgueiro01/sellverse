@@ -24,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
-
+import com.google.firebase.auth.FirebaseAuth;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.auction.AuctionInfoActivity;
 import com.main.es.sellverse.databinding.FragmentHomeBinding;
@@ -61,20 +61,7 @@ public class HomeFragment extends Fragment {
         this.view = view;
         setUpAuctionCatalog();
         setUpSwiperRefresh();
-        ActionMenuItemView filterText = view.findViewById(R.id.filters);
-        filterText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setUpFilterActivity();
-            }
-        });
-        ActionMenuItemView searchSimbol = view.findViewById(R.id.search);
-        searchSimbol.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setUpFilterActivity();
-            }
-        });
+
 
 
         //utiliza aqui el view hijo puta, no existe en fragmentos el findviewById pero puedes hacer el view.findViewbyId
@@ -103,8 +90,9 @@ public class HomeFragment extends Fragment {
     }
 
     public void setUpGrid(List<Auction> auctions){
+        String idUser= FirebaseAuth.getInstance().getUid();
 
-        GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctions);
+        GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctions,idUser);
         GridView g =  getActivity().findViewById(R.id.gridViewCatalog);
         g.setAdapter(gridAdapter);
         g.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,7 +101,7 @@ public class HomeFragment extends Fragment {
                 TemporalAuctionSaver.getInstance().auction=auctions.get(position);
                 Intent intent=new Intent(getContext(),AuctionInfoActivity.class);
                 startActivity(intent);
-                Toast.makeText(requireActivity(),"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -129,7 +117,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpFilterActivity() {
-        Intent intent = new Intent(requireActivity(), SearchActivity.class);
+        Intent intent = new Intent(getActivity(), SearchActivity.class);
         startActivity(intent);
     }
 

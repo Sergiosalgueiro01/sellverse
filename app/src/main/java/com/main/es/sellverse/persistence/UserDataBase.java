@@ -3,7 +3,9 @@ package com.main.es.sellverse.persistence;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,6 +18,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.main.es.sellverse.MainActivity;
+import com.main.es.sellverse.R;
 import com.main.es.sellverse.home.HomeActivity;
 import com.main.es.sellverse.login.UserNameActivity;
 import com.main.es.sellverse.model.Chat;
@@ -67,6 +71,7 @@ public class UserDataBase {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Intent intent;
                 if (documentSnapshot.get("username") != null) {
+
                     intent = new Intent(activity, HomeActivity.class);
 
                 } else {
@@ -79,6 +84,37 @@ public class UserDataBase {
         });
 
 
+    }
+    public static void checkIfUserHasUsernameMain(String id, MainActivity activity) {
+        SharedPreferences preferences =
+                activity.getSharedPreferences(activity.getString(R.string.prefs_file),
+                        Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        if (id == null)
+            id = "no$3";
+        String finalId = id;
+        dbFirestore.collection("usernames").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (!finalId.equals("no$3")) {
+                    Intent intent;
+                    if (documentSnapshot.get("username") != null) {
+                        editor.putString("username", documentSnapshot.get("username").toString());
+                        intent = new Intent(activity, HomeActivity.class);
+
+                    } else {
+                        intent = new Intent(activity, UserNameActivity.class);
+                    }
+                    activity.startActivity(intent);
+                    activity.finish();
+
+                } else {
+                    activity.setContentView(R.layout.activity_main);
+                    activity.setTheme(R.style.Theme_Sellverse_NoActionBar);
+                    activity.setUpButton();
+                }
+            }
+        });
     }
 
     public static void addUsernameToTextView(String id, TextView tv) {

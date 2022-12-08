@@ -662,6 +662,7 @@ public class AddPublicationActivity extends AppCompatActivity{
         return params.height;
     }
     private void addToDatabase(){
+
         hasChange = true;
         auctionToAdd = new Auction();
         String idAuction = UUID.randomUUID().toString();
@@ -672,9 +673,35 @@ public class AddPublicationActivity extends AppCompatActivity{
         TextInputEditText title = findViewById(R.id.tietTitle);
         TextInputEditText description = findViewById(R.id.tietDescription);
         TextInputEditText price = findViewById(R.id.tietPrice);
+        if(numberOfImages==0)
+            Toast.makeText(this,getString(R.string.min_one_image),Toast.LENGTH_SHORT).show();
+        else if(title.getText().toString().isEmpty()){
+            title.requestFocus();
+            title.setError(getString(R.string.title_cannot_be_empty));
+        }
+        else if(description.getText().toString().isEmpty()){
+            description.requestFocus();
+            description.setError(getString(R.string.description_cannot_be_empty));
+        }
+        else if(price.getText().toString().isEmpty()){
+            price.requestFocus();
+            price.setError(getString(R.string.price_cannot_be_empty));
+        }
+        else{
+
         EditText maxDays = findViewById(R.id.tilDaysSpinner);
         EditText maxMinutes = findViewById(R.id.tilMinutesSpinner);
         EditText maxHours= findViewById(R.id.tilHoursSpinner);
+        if(maxDays.getText().toString().isEmpty()){
+            maxDays.setText("0");
+        }
+        if(maxMinutes.getText().toString().isEmpty()){
+                maxMinutes.setText("0");
+        }
+        if(maxHours.getText().toString().isEmpty()){
+            maxHours.setText("0");
+            }
+
         RadioButton rNow = findViewById(R.id.rbNow);
         auctionToAdd.setTitle(title.getText().toString());
         auctionToAdd.setDescription(description.getText().toString());
@@ -685,6 +712,7 @@ public class AddPublicationActivity extends AppCompatActivity{
         if(rNow.isChecked()){
             Calendar calendar = Calendar.getInstance();
             Date date = calendar.getTime();
+
             date.setYear(date.getYear()+1900);
             auctionToAdd.setStartTime(date);
         }
@@ -709,9 +737,28 @@ public class AddPublicationActivity extends AppCompatActivity{
 
         if(counter!=0)
             finish();
-        else
+        else{
+            goContinue();
             counter++;
 
+        }
+        }
+
+
+    }
+    private void goContinue() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.all_done);
+        dialog.setMessage(R.string.auction_successfully);
+        dialog.setCancelable(false);
+        dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                addToDatabase();
+            }
+        });
+
+        dialog.show();
 
     }
 
@@ -723,10 +770,10 @@ public class AddPublicationActivity extends AppCompatActivity{
     @Override
     protected void onStop() {
         if(hasChange) {
-
+            if(auctionToAdd.getStartTime()!=null){
             auctionToAdd.setImagesUrls(TemporalStringSaver.getInstance().list);
 
-            AuctionDataBase.createAction(auctionToAdd);
+            AuctionDataBase.createAction(auctionToAdd);}
         }
         super.onStop();
 

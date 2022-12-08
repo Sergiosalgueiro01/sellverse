@@ -25,7 +25,7 @@ public class DateConvertionUtil {
         return calendar.getTime();
     }
 
-    public static String convert(Date localDateTime) {
+    public static String convert(Date localDateTime){
         localDateTime.setMonth(localDateTime.getMonth()+1);
         return localDateTime.getYear()+
                 "-"+parseNumber(localDateTime.getMonth())+
