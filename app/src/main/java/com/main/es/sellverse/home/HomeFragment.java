@@ -24,7 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
-
+import com.google.firebase.auth.FirebaseAuth;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.auction.AuctionInfoActivity;
 import com.main.es.sellverse.databinding.FragmentHomeBinding;
@@ -90,8 +90,9 @@ public class HomeFragment extends Fragment {
     }
 
     public void setUpGrid(List<Auction> auctions){
+        String idUser= FirebaseAuth.getInstance().getUid();
 
-        GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctions);
+        GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctions,idUser);
         GridView g =  getActivity().findViewById(R.id.gridViewCatalog);
         g.setAdapter(gridAdapter);
         g.setOnItemClickListener(new AdapterView.OnItemClickListener() {
