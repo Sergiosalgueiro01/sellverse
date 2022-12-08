@@ -214,7 +214,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     private void addToPrefs(FirebaseUser user,SharedPreferences preferences){
-
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("email", user.getEmail());
         editor.putString("userID",user.getUid());

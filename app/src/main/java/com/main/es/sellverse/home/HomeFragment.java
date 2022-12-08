@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment {
                 TemporalAuctionSaver.getInstance().auction=auctions.get(position);
                 Intent intent=new Intent(getContext(),AuctionInfoActivity.class);
                 startActivity(intent);
-                Toast.makeText(requireActivity(),"You Clicked on "+ auctions.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -129,7 +129,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpFilterActivity() {
-        Intent intent = new Intent(requireActivity(), SearchActivity.class);
+        Intent intent = new Intent(getActivity(), SearchActivity.class);
         startActivity(intent);
     }
 
