@@ -709,9 +709,27 @@ public class AddPublicationActivity extends AppCompatActivity{
 
         if(counter!=0)
             finish();
-        else
+        else{
+            goContinue();
             counter++;
 
+        }
+
+
+    }
+    private void goContinue() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.all_done);
+        dialog.setMessage(R.string.auction_successfully);
+        dialog.setCancelable(false);
+        dialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                addToDatabase();
+            }
+        });
+
+        dialog.show();
 
     }
 

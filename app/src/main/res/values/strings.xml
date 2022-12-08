@@ -88,5 +88,8 @@
     <string name="you_bid">You bidded:</string>
     <string name="biggest_bid">Biggest bid:</string>
     <string name="your_bids">Bids</string>
+    <string name="auction_successfully">Your auction has been added successfully</string>
+    <string name="all_done">All done</string>
+    <string name="ok">Ok</string>
 
 </resources>
