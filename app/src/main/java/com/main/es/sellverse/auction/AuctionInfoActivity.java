@@ -52,8 +52,22 @@ public class AuctionInfoActivity extends AppCompatActivity {
         setUpUsername();
         setUpAmountToBid();
         setUpBtnMakeTheBid();
+        setUpChatButton();
 
     }
+
+    private void setUpChatButton() {
+        Button b = findViewById(R.id.startAChat);
+        String idCurrentUser=FirebaseAuth.getInstance().getUid();
+        String auctionUser=auction.getUserId();
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
