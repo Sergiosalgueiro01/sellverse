@@ -22,6 +22,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
 
     private List<ChatMessage> listMessages;
 
+    public MessagesAdapter(List<ChatMessage> messages){
+        this.listMessages = messages;
+    }
+
     /* Indicamos el layout a "inflar" para usar en la vista
      */
     @NonNull
