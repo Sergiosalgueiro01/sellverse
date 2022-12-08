@@ -61,20 +61,7 @@ public class HomeFragment extends Fragment {
         this.view = view;
         setUpAuctionCatalog();
         setUpSwiperRefresh();
-        ActionMenuItemView filterText = view.findViewById(R.id.filters);
-        filterText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setUpFilterActivity();
-            }
-        });
-        ActionMenuItemView searchSimbol = view.findViewById(R.id.search);
-        searchSimbol.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setUpFilterActivity();
-            }
-        });
+
 
 
         //utiliza aqui el view hijo puta, no existe en fragmentos el findviewById pero puedes hacer el view.findViewbyId
