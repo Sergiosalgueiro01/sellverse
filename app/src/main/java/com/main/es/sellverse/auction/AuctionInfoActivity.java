@@ -100,6 +100,7 @@ public class AuctionInfoActivity extends AppCompatActivity {
     private void makeTheBid(double amount) {
         String id=FirebaseAuth.getInstance().getCurrentUser().getUid();
         Date date = new Date();
+        date.setYear(date.getYear()+1900);
         auction.setCurrentPrice(amount);
         Bid bid=new Bid();
         bid.setAmount(amount);
@@ -128,11 +129,13 @@ public class AuctionInfoActivity extends AppCompatActivity {
     private void setUpStartDate() {
         TextView tv = findViewById(R.id.tvStartDateAction);
         Date date = auction.getStartTime();
-        date.setYear(date.getYear()+1900);
 
-        tv.setText(tv.getText()+" "+ DateConvertionUtil.convert(date));
-        date.setYear(date.getYear()-1900);
-        date.setMonth(date.getMonth()-1);
+
+        int month = date.getMonth()+1;
+        int years =date.getYear()+1900;
+        String s = years+"/"+month+"/"+date.getDate();
+        tv.setText(tv.getText()+" "+s);
+
 
     }
 
