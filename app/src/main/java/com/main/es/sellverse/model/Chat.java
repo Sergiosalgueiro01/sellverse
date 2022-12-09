@@ -90,7 +90,7 @@ public class Chat {
         result.put("seller", sellerId);
         result.put("buyer", buyerId);
         result.put("messages", getMessagesOnAMap());
-        result.put("lastmessage","");
+        result.put("lastmessage",lastMessage);
         return result;
     }
 

@@ -106,7 +106,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     public void method(ViewHolder viewHolder, Chat chat , final OnItemClickListener listener){
         User u = TemporalUserSaver.getInstance().user;
 
-        viewHolder.nombreMensaje.setText(u.getEmail());
+        viewHolder.nombreMensaje.setText(u.getUsername());
         ChatMessage last;
         if(!chat.getMessages().isEmpty()) {
             last = chat.getMessages().get(chat.getMessages().size() - 1);

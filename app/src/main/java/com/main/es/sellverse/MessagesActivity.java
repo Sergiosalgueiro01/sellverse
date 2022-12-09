@@ -57,7 +57,7 @@ public class MessagesActivity extends AppCompatActivity {
                 message.setText(text);
                 SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
                 message.setUserName(preferences.getString("username",""));
-
+                chat.setLastMessage(text);
                 chat.getMessages().add(message);
                 ChatDataBase.createChat(chat);
                 updateChat();

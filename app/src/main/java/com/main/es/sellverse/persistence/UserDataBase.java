@@ -159,8 +159,26 @@ public class UserDataBase {
                 user.setSurname(documentSnapshot.get("surname")+"");
                 user.setEmail(documentSnapshot.get("email") +"");
                 user.setPhone_number(documentSnapshot.get("phone_number") +"");
-                TemporalUserSaver.getInstance().user = user;
-                chatAdapter.method(viewHolder, chat, listener);
+                loadUsername(user,chatAdapter,viewHolder,chat,listener);
+
+            }
+        });
+    }
+
+    private static void loadUsername(User user,ChatAdapter chatAdapter,
+                                     ChatAdapter.ViewHolder viewHolder, Chat chat, final ChatAdapter.OnItemClickListener listener) {
+        dbFirestore.collection("usernames").document(user.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                if (documentSnapshot.get("username") != null) {
+
+                  user.setUsername(documentSnapshot.get("username").toString());
+                  TemporalUserSaver.getInstance().user = user;
+                  chatAdapter.method(viewHolder, chat, listener);
+                }
+
+
             }
         });
     }
