@@ -39,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.main.es.sellverse.R;
+import com.main.es.sellverse.auction.MyAuctionsActivity;
 import com.main.es.sellverse.login.LoginActivity;
 
 import java.util.HashMap;
@@ -76,6 +77,18 @@ public class ProfileFragment extends Fragment {
         setUpConfigButton();
         setUpUpUpdateButton();
         setUpProfile();
+        setUpActiveAuctions();
+    }
+
+    private void setUpActiveAuctions() {
+        Button btn = view.findViewById(R.id.btnActiveBids);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MyAuctionsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setUpUpUpdateButton() {
