@@ -21,7 +21,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10sp">
+                android:padding="10sp"
+                android:layout_marginRight="10dp">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/fotoPerfilMensaje"
                     android:layout_width="24sp"
@@ -41,7 +42,7 @@
                         android:id="@+id/nombreMensaje"
                         android:layout_width="223dp"
                         android:layout_height="wrap_content"
-
+                        android:textStyle="bold"
                         android:text="Kevin" />
 
                     <TextView

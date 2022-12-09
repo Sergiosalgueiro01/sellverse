@@ -19,6 +19,7 @@ import com.main.es.sellverse.model.Chat;
 import com.main.es.sellverse.model.ChatAdapter;
 import com.main.es.sellverse.model.ChatMessage;
 import com.main.es.sellverse.model.User;
+import com.main.es.sellverse.persistence.ChatDataBase;
 import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalChatsSaver;
 
@@ -56,18 +57,26 @@ public class MessagesActivity extends AppCompatActivity {
                 message.setText(text);
                 SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
                 message.setUserName(preferences.getString("username",""));
+                chat.setLastMessage(text);
+                chat.getMessages().add(message);
+                ChatDataBase.createChat(chat);
+                updateChat();
+                tx.setText("");
 
-                // chat.getMessages().add(message);
-                // TODO persistir el mensaje y actualizar el chat
             }
         });
+
     }
+
 
     public void setUpChat(User user){
         TextView txNombre = findViewById(R.id.nombre);
 
         txNombre.setText(user.getName());
+        updateChat();
 
+    }
+    private void updateChat(){
         MessagesAdapter m = new MessagesAdapter(chat.getMessages());
         RecyclerView r = findViewById(R.id.rvMensajes);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());

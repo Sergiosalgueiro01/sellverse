@@ -35,6 +35,8 @@ import com.main.es.sellverse.search.SearchActivity;
 import com.main.es.sellverse.util.datasavers.TemporalAuctionSaver;
 import com.main.es.sellverse.util.tasks.RetrieveAuctionsTask;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -91,19 +93,37 @@ public class HomeFragment extends Fragment {
 
     public void setUpGrid(List<Auction> auctions){
         String idUser= FirebaseAuth.getInstance().getUid();
-
-        GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctions,idUser);
+        List<Auction>auctionToGrid= getAuctionsThatAreNotInUser(auctions,idUser);
+        GridAdapter gridAdapter = new GridAdapter(view.getContext(), auctionToGrid,idUser);
         GridView g =  getActivity().findViewById(R.id.gridViewCatalog);
         g.setAdapter(gridAdapter);
         g.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TemporalAuctionSaver.getInstance().auction=auctions.get(position);
+                TemporalAuctionSaver.getInstance().auction=auctionToGrid.get(position);
                 Intent intent=new Intent(getContext(),AuctionInfoActivity.class);
                 startActivity(intent);
 
             }
         });
+    }
+    private List<Auction> getAuctionsThatAreNotInUser(List<Auction> auctions,String userId) {
+
+        List<Auction>result= new ArrayList<>();
+        Date date = new Date();
+        date.setDate(date.getDate()+1);//porque el emulador tiene distinta hora
+
+        for(Auction auction:auctions){
+
+            if(!auction.getUserId().equals(userId) &&
+                    auction.getStartTime().before(date)
+                    && auction.getEndTime()
+                    .after(date)) {
+
+                result.add(auction);
+            }
+        }
+        return  result;
     }
 
     @Override

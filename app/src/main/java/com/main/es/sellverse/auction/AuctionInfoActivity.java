@@ -8,7 +8,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.Bid;
+import com.main.es.sellverse.model.Chat;
 import com.main.es.sellverse.persistence.AuctionDataBase;
+import com.main.es.sellverse.persistence.ChatDataBase;
 import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalAuctionSaver;
 import com.main.es.sellverse.util.date.DateConvertionUtil;
@@ -26,8 +28,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.checkerframework.checker.units.qual.C;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Random;
 import java.util.UUID;
 
 import cn.iwgang.countdownview.CountdownView;
@@ -63,7 +69,12 @@ public class AuctionInfoActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Chat chat = new Chat();
+                chat.setId(UUID.randomUUID().toString());
+                chat.setBuyerId(idCurrentUser);
+                chat.setSellerId(auctionUser);
+                chat.setMessages(new ArrayList<>());
+                ChatDataBase.createChat(chat);
             }
         });
     }

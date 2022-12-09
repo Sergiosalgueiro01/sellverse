@@ -1,7 +1,12 @@
 package com.main.es.sellverse.model;
 
+import com.google.firebase.firestore.Exclude;
+import com.main.es.sellverse.util.date.DateConvertionUtil;
+
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ChatMessage {
@@ -58,6 +63,17 @@ public class ChatMessage {
         if (o == null || getClass() != o.getClass()) return false;
         ChatMessage message = (ChatMessage) o;
         return id.equals(message.id);
+    }
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("id", id);
+        result.put("text", text);
+        result.put("username", userName);
+        result.put("time", DateConvertionUtil.convert(time));
+
+        return result;
     }
 
     @Override
