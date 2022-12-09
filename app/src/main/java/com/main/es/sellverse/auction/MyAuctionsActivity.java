@@ -44,7 +44,7 @@ public class MyAuctionsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TemporalAuctionSaver.getInstance().auction=listMyAuctions.get(position);
-                Intent intent=new Intent(getApplicationContext(), AuctionInfoActivity.class);
+                Intent intent=new Intent(getApplicationContext(), MyAuctionsInfoActivity.class);
                 startActivity(intent);
             }
         });
