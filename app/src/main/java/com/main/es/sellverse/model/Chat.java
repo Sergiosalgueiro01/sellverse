@@ -1,6 +1,13 @@
 package com.main.es.sellverse.model;
 
+import android.os.Message;
+
+import com.google.firebase.firestore.Exclude;
+import com.main.es.sellverse.util.date.DateConvertionUtil;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Chat {
@@ -73,5 +80,27 @@ public class Chat {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+
+        result.put("id", id);
+        result.put("seller", sellerId);
+        result.put("buyer", buyerId);
+        result.put("messages", getMessagesOnAMap());
+        result.put("lastmessage","");
+        return result;
+    }
+
+    private Map<String, Object> getMessagesOnAMap() {
+        HashMap<String,Object>messages = new HashMap<>();
+        int i=0;
+        for(ChatMessage message:getMessages()){
+            messages.put(i+"",message.toMap());
+            i++;
+        }
+        return messages;
     }
 }

@@ -31,22 +31,10 @@ public class GridAdapter extends BaseAdapter {
     public GridAdapter(Context context, List<Auction> auctions,String userId) {
         this.userId=userId;
         this.context = context;
-        this.auctions = getAuctionsThatAreNotInUser(auctions);
+        this.auctions = auctions;
     }
 
-    private List<Auction> getAuctionsThatAreNotInUser(List<Auction> auctions) {
-        List<Auction>result= new ArrayList<>();
-        Date date = new Date();
 
-        for(Auction auction:auctions){
-            if(!auction.getUserId().equals(userId) &&
-                    auction.getStartTime().before(date)
-                    && auction.getEndTime()
-                    .after(date))
-                result.add(auction);
-        }
-        return  result;
-    }
 
 
     @Override

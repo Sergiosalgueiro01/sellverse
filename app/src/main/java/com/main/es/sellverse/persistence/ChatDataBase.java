@@ -11,6 +11,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.main.es.sellverse.home.ChatFragment;
 import com.main.es.sellverse.model.Auction;
+import com.main.es.sellverse.model.Bid;
 import com.main.es.sellverse.model.Chat;
 import com.main.es.sellverse.model.ChatMessage;
 import com.main.es.sellverse.model.User;
@@ -27,7 +28,10 @@ public class ChatDataBase {
 
     private static FirebaseFirestore dbFirestore = FirebaseFirestore.getInstance();
     private static FirebaseStorage dbStorage = FirebaseStorage.getInstance();
+    public static void createChat(Chat chat){
+        dbFirestore.collection("chats").document(chat.getId()).set(chat.toMap());
 
+    }
     public static void getChatsByUser(String userId, ChatFragment fragment){
 
         TemporalChatsSaver.getInstance().chats.clear();
@@ -43,9 +47,11 @@ public class ChatDataBase {
                     chat.setBuyerId(query.get("buyer").toString());
                     chat.setSellerId(query.get("seller").toString());
                     chat.setLastMessage(query.get("lastmessage").toString());
-                    List<String> messagesIds = (List<String>) query.get("messages");
+                    HashMap<String,Object>list = (HashMap<String, Object>) query.get("messages");
+                    chat.setMessages(getMessages(list));
+                    TemporalChatsSaver.getInstance().chats.add(chat);
+                    fragment.method();
 
-                    getMessagesByIds(messagesIds, chat, fragment);
                 }
             }
         });
@@ -61,9 +67,10 @@ public class ChatDataBase {
                             chat.setBuyerId(query.get("buyer").toString());
                             chat.setSellerId(query.get("seller").toString());
                             chat.setLastMessage(query.get("lastmessage").toString());
-                            List<String> messagesIds = (List<String>) query.get("messages");
-
-                            getMessagesByIds(messagesIds, chat, fragment );
+                            HashMap<String,Object>list = (HashMap<String, Object>) query.get("messages");
+                            chat.setMessages(getMessages(list));
+                            TemporalChatsSaver.getInstance().chats.add(chat);
+                            fragment.method();
 
                         }
 
@@ -73,6 +80,27 @@ public class ChatDataBase {
         while(!collection.isComplete() && !collection2.isComplete()){
 
         }
+    }
+    private static List<ChatMessage> getMessages(HashMap<String, Object> messages) {
+        List<ChatMessage> list = new ArrayList<>();
+        messages.forEach((s, o) ->{
+            HashMap<String,Object>messageHashed= (HashMap<String, Object>) o;
+            ChatMessage message=new ChatMessage();
+            messageHashed.forEach((s1, o1) ->{
+
+                if(s1.equals("id"))
+                    message.setId((String) o1);
+                else if(s1.equals("text"))
+                    message.setText((String) o1);
+                else if(s1.equals("username"))
+                    message.setUserName((String) o1);
+                else
+                    message.setTime((DateConvertionUtil.unconvert((String) o1)));
+
+            });
+            list.add(message);
+        });
+        return list;
     }
 
     private static List<ChatMessage> getMessagesByIds(List<String> chatids, Chat chat, ChatFragment fragment){

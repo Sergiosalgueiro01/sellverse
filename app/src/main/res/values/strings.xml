@@ -94,4 +94,5 @@
     <string name="title_cannot_be_empty">Title cannot be Empty</string>
     <string name="description_cannot_be_empty">Description cannot be empty</string>
     <string name="min_one_image">There must be at least one image</string>
+    <string name="send">Send</string>
 </resources>

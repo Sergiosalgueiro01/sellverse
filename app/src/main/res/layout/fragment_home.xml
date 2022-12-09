@@ -19,8 +19,8 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/catalog_toolbar"
-            android:layout_width="360dp"
-            android:layout_height="103dp"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
             android:paddingBottom="10dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

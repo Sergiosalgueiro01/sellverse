@@ -104,6 +104,7 @@ public class UserDataBase {
                     Intent intent;
                     if (documentSnapshot.get("username") != null) {
                         editor.putString("username", documentSnapshot.get("username").toString());
+                        editor.commit();
                         intent = new Intent(activity, HomeActivity.class);
 
                     } else {
