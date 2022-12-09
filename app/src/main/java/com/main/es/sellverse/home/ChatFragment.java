@@ -1,7 +1,9 @@
 package com.main.es.sellverse.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +20,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.main.es.sellverse.MessagesActivity;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.model.Chat;
 import com.main.es.sellverse.model.ChatAdapter;
@@ -28,7 +32,10 @@ import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalAuctionSaver;
 import com.main.es.sellverse.util.datasavers.TemporalChatsSaver;
 
+import org.checkerframework.checker.signature.qual.PolySignature;
+
 import java.util.List;
+import java.util.Objects;
 
 
 public class ChatFragment extends Fragment {
@@ -64,9 +71,18 @@ public class ChatFragment extends Fragment {
 
 
         List<Chat> chats =  TemporalChatsSaver.getInstance().chats;
-        System.out.println("A " + chats.size());
-        ChatAdapter chatAdapter = new ChatAdapter(requireActivity(), chats);
-        RecyclerView r =  requireActivity().findViewById(R.id.rvChats);
+
+        ChatAdapter chatAdapter = new ChatAdapter(requireActivity(), chats, new ChatAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Chat chat) {
+
+                TemporalChatsSaver.getInstance().chat = chat;
+                startActivity(new Intent(requireActivity(), MessagesActivity.class));
+
+            }
+        });
+        RecyclerView r = requireActivity().findViewById(R.id.rvChats);
+
 
 
         LinearLayoutManager llm = new LinearLayoutManager(getContext());

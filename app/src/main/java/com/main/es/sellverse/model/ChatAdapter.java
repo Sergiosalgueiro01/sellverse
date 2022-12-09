@@ -1,6 +1,8 @@
 package com.main.es.sellverse.model;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +12,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.main.es.sellverse.MessagesActivity;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.persistence.UserDataBase;
+import com.main.es.sellverse.util.datasavers.TemporalChatsSaver;
 import com.main.es.sellverse.util.datasavers.TemporalUserSaver;
 import com.main.es.sellverse.util.listeners.SelectListener;
+import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 
 import java.util.List;
 
@@ -25,9 +30,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     Context context;
     LayoutInflater inflater;
 
-    public ChatAdapter(Context context, List<Chat> chats){
+    // Interfaz para manejar el evento click sobre un elemento
+    public interface OnItemClickListener {
+        void onItemClick(Chat chat);
+    }
+
+    private static View.OnClickListener clickListener;
+    private final OnItemClickListener listener;
+
+    public ChatAdapter(Context context, List<Chat> chats, OnItemClickListener listener){
         this.context = context;
         this.chats = chats;
+        this.listener = listener;
     }
 
 
@@ -50,8 +64,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             this.horaMensaje = view.findViewById(R.id.horaMensaje);
             this.cardView = view.findViewById(R.id.chatContainer);
             // Define click listener for the ViewHolder's View
-
         }
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -71,20 +85,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("PRUEBA DE CLICK");
-            }
-        });
         Chat chat = chats.get(position);
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         if(userID.equals(chat.getBuyerId())){
-            UserDataBase.getUserById(chat.getSellerId(),this, viewHolder, chat);
+            UserDataBase.getUserById(chat.getSellerId(),this, viewHolder, chat, listener);
         }else{
-            UserDataBase.getUserById(chat.getBuyerId(), this, viewHolder, chat);
+            UserDataBase.getUserById(chat.getBuyerId(), this, viewHolder, chat, listener);
         }
 
     }
@@ -95,7 +103,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         return chats.size();
     }
 
-    public void method(ViewHolder viewHolder, Chat chat ){
+    public void method(ViewHolder viewHolder, Chat chat , final OnItemClickListener listener){
         User u = TemporalUserSaver.getInstance().user;
 
         viewHolder.nombreMensaje.setText(u.getEmail());
@@ -110,7 +118,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
                 minutes = "0"+minutes;
             viewHolder.horaMensaje.setText( hour + ":" + minutes);
         }
+        viewHolder.cardView.setOnClickListener(clickListener);
         viewHolder.mensajeMensaje.setText(chat.getLastMessage());
         viewHolder.image.setImageResource(R.drawable.logo_martillo);
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("CHATADAPTER", "Click");
+                listener.onItemClick(chat);
+            }
+        });
     }
 }

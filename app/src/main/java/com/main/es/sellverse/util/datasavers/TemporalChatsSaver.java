@@ -10,6 +10,7 @@ public class TemporalChatsSaver {
 
     private static TemporalChatsSaver instance;
     public List<Chat> chats = new ArrayList<>();
+    public Chat chat;
 
     public static TemporalChatsSaver getInstance() {
         if (instance == null) {

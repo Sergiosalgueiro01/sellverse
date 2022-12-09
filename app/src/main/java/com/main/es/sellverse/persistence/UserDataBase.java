@@ -18,8 +18,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+
+import com.main.es.sellverse.MessagesActivity;
+
 import com.main.es.sellverse.MainActivity;
 import com.main.es.sellverse.R;
+
 import com.main.es.sellverse.home.HomeActivity;
 import com.main.es.sellverse.login.UserNameActivity;
 import com.main.es.sellverse.model.Chat;
@@ -139,7 +143,7 @@ public class UserDataBase {
         dbFirestore.collection("user").document(user.getId()).set(user.toMap());
     }
 
-    public static void getUserById(String id, ChatAdapter chatAdapter, ChatAdapter.ViewHolder viewHolder, Chat chat){
+    public static void getUserById(String id, ChatAdapter chatAdapter, ChatAdapter.ViewHolder viewHolder, Chat chat, final ChatAdapter.OnItemClickListener listener){
         TemporalUserSaver.getInstance().user = null;
 
         dbFirestore.collection("user").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -155,7 +159,28 @@ public class UserDataBase {
                 user.setEmail(documentSnapshot.get("email") +"");
                 user.setPhone_number(documentSnapshot.get("phone_number") +"");
                 TemporalUserSaver.getInstance().user = user;
-                chatAdapter.method(viewHolder, chat);
+                chatAdapter.method(viewHolder, chat, listener);
+            }
+        });
+    }
+
+    public static void getUserByIdForMessages(String id, MessagesActivity activity){
+        TemporalUserSaver.getInstance().user = null;
+
+        dbFirestore.collection("user").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                User user;
+
+                user = new User();
+                user.setId(documentSnapshot.get("id") +"");
+                user.setName(documentSnapshot.get("name")+"");
+                user.setSurname(documentSnapshot.get("surname")+"");
+                user.setEmail(documentSnapshot.get("email") +"");
+                user.setPhone_number(documentSnapshot.get("phone_number") +"");
+                TemporalUserSaver.getInstance().user = user;
+                activity.setUpChat(user);
             }
         });
     }
