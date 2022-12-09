@@ -1,5 +1,7 @@
 package com.main.es.sellverse.persistence;
 
+import android.widget.Button;
+
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -128,4 +130,36 @@ public class ChatDataBase {
         return res;
     }
 
+    public static void checkIfTheyHaveAChat(String idCurrentUser, String auctionUser, Button b) {
+        Task<QuerySnapshot> collection = dbFirestore.collection("chats")
+                .whereEqualTo("seller",idCurrentUser)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        for (QueryDocumentSnapshot query : queryDocumentSnapshots) {
+                           if(query.get("buyer").toString().equals(auctionUser))
+                            b.setEnabled(false);
+
+
+                        }
+                    }
+                });
+        Task<QuerySnapshot> collection2 = dbFirestore.collection("chats")
+                .whereEqualTo("buyer",idCurrentUser)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        Chat chat;
+                        for (QueryDocumentSnapshot query : queryDocumentSnapshots) {
+
+                                if(query.get("seller").toString().equals(auctionUser))
+                                    b.setEnabled(false);
+
+                        }
+
+                    }
+
+                });
+    }
 }

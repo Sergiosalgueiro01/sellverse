@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.main.es.sellverse.MessagesActivity;
 import com.main.es.sellverse.R;
 import com.main.es.sellverse.model.Auction;
 import com.main.es.sellverse.model.Bid;
@@ -13,6 +14,7 @@ import com.main.es.sellverse.persistence.AuctionDataBase;
 import com.main.es.sellverse.persistence.ChatDataBase;
 import com.main.es.sellverse.persistence.UserDataBase;
 import com.main.es.sellverse.util.datasavers.TemporalAuctionSaver;
+import com.main.es.sellverse.util.datasavers.TemporalChatsSaver;
 import com.main.es.sellverse.util.date.DateConvertionUtil;
 import com.main.es.sellverse.util.slider.SliderAdapter;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -20,6 +22,8 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -63,9 +67,11 @@ public class AuctionInfoActivity extends AppCompatActivity {
     }
 
     private void setUpChatButton() {
+
         Button b = findViewById(R.id.startAChat);
         String idCurrentUser=FirebaseAuth.getInstance().getUid();
         String auctionUser=auction.getUserId();
+        ChatDataBase.checkIfTheyHaveAChat(idCurrentUser,auctionUser,b);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,8 +81,17 @@ public class AuctionInfoActivity extends AppCompatActivity {
                 chat.setSellerId(auctionUser);
                 chat.setMessages(new ArrayList<>());
                 ChatDataBase.createChat(chat);
+                TemporalChatsSaver.getInstance().chat = chat;
+                openActivity();
+
             }
         });
+    }
+
+    private void openActivity() {
+        Intent intent=new Intent(this, MessagesActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @SuppressLint("NonConstantResourceId")

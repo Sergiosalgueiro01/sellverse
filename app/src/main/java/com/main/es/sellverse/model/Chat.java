@@ -15,7 +15,7 @@ public class Chat {
     private String id;
     private String sellerId;
     private String buyerId;
-    private String lastMessage;
+    private String lastMessage="";
     private List<ChatMessage> messages;
 
     public Chat(String id, String sellerId, String buyerId,String last, List<ChatMessage> messages) {
