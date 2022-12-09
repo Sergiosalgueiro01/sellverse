@@ -19,6 +19,8 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
+
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -30,6 +32,7 @@
         android:theme="@style/Theme.Sellverse.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".MessagesActivity"
             android:exported="false" />
@@ -69,6 +72,11 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".auction.MyAuctionsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".auction.MyAuctionsInfoActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
