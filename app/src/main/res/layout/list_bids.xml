@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+    <RelativeLayout
+        android:id="@+id/rlColorBids"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/lyoutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:orientation="horizontal"
+
+            >
+
+            <ImageView
+                android:id="@+id/imageBid"
+                android:layout_width="63dp"
+                android:layout_height="41dp"
+                android:contentDescription="@string/a"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/titleBid"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-light"
+                android:text="hpña"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/lyoutText2"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:orientation="vertical"
+
+                >
+
+                <TextView
+                    android:id="@+id/youBidded"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/you_bid"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/biggestBid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/biggest_bid"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

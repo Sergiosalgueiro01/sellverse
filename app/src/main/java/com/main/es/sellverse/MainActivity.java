@@ -11,37 +11,37 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.main.es.sellverse.home.HomeActivity;
 import com.main.es.sellverse.login.LoginActivity;
 import com.main.es.sellverse.login.UserNameActivity;
+import com.main.es.sellverse.persistence.UserDataBase;
 
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_Sellverse_NoActionBar);//set the main activity theme to finish the splash screen
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         checkForNewWindow();
-        setUpButton();
 
 
     }
 
     private void checkForNewWindow() {
-        SharedPreferences preferences = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE);
-        if(!preferences.getString("email","").equals("")) {
-            if (!preferences.getString("username", "").equals(""))
-                openNextActivity(new Intent(this, HomeActivity.class));
-            else {
-                openNextActivity(new Intent(this, UserNameActivity.class));
-            }
-        }
+
+
+        String idUser= FirebaseAuth.getInstance().getUid();
+
+
+        UserDataBase.checkIfUserHasUsernameMain(idUser,this);
+
+
 
     }
 
-    private void setUpButton() {
+
+    public void setUpButton() {
         Button button = findViewById(R.id.btnStart);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

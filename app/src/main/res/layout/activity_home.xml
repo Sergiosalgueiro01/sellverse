@@ -13,15 +13,14 @@
         android:layout_above="@id/bottom_navigation"
 
 
-        ></FrameLayout>
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/bottom_navigation"
         android:layout_alignParentBottom="true"
-
-        app:menu="@menu/nav_menu_home"
-        ></com.google.android.material.bottomnavigation.BottomNavigationView>
+        android:background="@color/white"
+        app:menu="@menu/nav_menu_home" />
 </RelativeLayout>
 

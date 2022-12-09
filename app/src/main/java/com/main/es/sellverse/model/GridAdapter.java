@@ -16,6 +16,7 @@ import com.main.es.sellverse.R;
 import com.squareup.picasso.Picasso;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,13 +25,27 @@ public class GridAdapter extends BaseAdapter {
     Context context;
     List<Bitmap> images;
     List<Auction> auctions;
-
+    String userId;
     LayoutInflater inflater;
 
-    public GridAdapter(Context context, List<Auction> auctions) {
-
+    public GridAdapter(Context context, List<Auction> auctions,String userId) {
+        this.userId=userId;
         this.context = context;
-        this.auctions = auctions;
+        this.auctions = getAuctionsThatAreNotInUser(auctions);
+    }
+
+    private List<Auction> getAuctionsThatAreNotInUser(List<Auction> auctions) {
+        List<Auction>result= new ArrayList<>();
+        Date date = new Date();
+
+        for(Auction auction:auctions){
+            if(!auction.getUserId().equals(userId) &&
+                    auction.getStartTime().before(date)
+                    && auction.getEndTime()
+                    .after(date))
+                result.add(auction);
+        }
+        return  result;
     }
 
 
