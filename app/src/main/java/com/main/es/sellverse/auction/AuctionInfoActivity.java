@@ -67,9 +67,11 @@ public class AuctionInfoActivity extends AppCompatActivity {
     }
 
     private void setUpChatButton() {
+
         Button b = findViewById(R.id.startAChat);
         String idCurrentUser=FirebaseAuth.getInstance().getUid();
         String auctionUser=auction.getUserId();
+        ChatDataBase.checkIfTheyHaveAChat(idCurrentUser,auctionUser,b);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
