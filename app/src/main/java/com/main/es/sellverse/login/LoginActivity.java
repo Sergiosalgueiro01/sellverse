@@ -54,19 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         setUpRegisterEmailPaswword();
         setUpLoginEmailPaswword();
         setUpGoogleButton();
-        forgetPassword();
-    }
-
-    private void forgetPassword() {
-        Button btnForgotPassword = findViewById(R.id.btnResetPsw);
-        btnForgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     private void setUpLoginEmailPaswword(){

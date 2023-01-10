@@ -52,9 +52,6 @@
             android:usesCleartextTraffic="true"
             tools:targetApi="31" />
         <activity
-            android:name=".login.ResetPasswordActivity"
-            android:exported="false" />
-        <activity
             android:name=".login.VerifyActivity"
             android:exported="false" />
         <activity
