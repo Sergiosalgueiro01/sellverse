@@ -57,41 +57,46 @@ public class RegisterActivity extends AppCompatActivity {
         TextView txtEmail = findViewById(R.id.txtEmailR);
         String email = txtEmail.getText().toString();
         TextView txtPasword = findViewById(R.id.txtPasswordR);
-
-        if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()
+        if(txtPasword.getText().length()<6){
+            txtPasword.requestFocus();
+            txtPasword.setError(getString(R.string.max_length_password));
+        }
+        else {
+            if (!txtEmail.getText().toString().isEmpty() && !txtPasword.getText().toString().isEmpty()
             ) {
-            myAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPasword.getText().toString()).addOnCompleteListener(this,
-                    new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                String id = myAuth.getCurrentUser().getUid();
-                                Map<String, Object> map = new HashMap<>();
-                                map.put("id", id);
-                                map.put("email", email);
-                                map.put("phone_number", "Phone");
-                                map.put("name", "Name");
+                myAuth.createUserWithEmailAndPassword(txtEmail.getText().toString(), txtPasword.getText().toString()).addOnCompleteListener(this,
+                        new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    String id = myAuth.getCurrentUser().getUid();
+                                    Map<String, Object> map = new HashMap<>();
+                                    map.put("id", id);
+                                    map.put("email", email);
+                                    map.put("phone_number", "Phone");
+                                    map.put("name", "Name");
 
-                                mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        FirebaseUser user = myAuth.getCurrentUser();
-                                        addToSharedPreferences(user);
-                                        Intent intent = new Intent(RegisterActivity.this, UserNameActivity.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(RegisterActivity.this, "Error to save", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }else {
-                                showAlert();
+                                    mFirestore.collection("user").document(id).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            FirebaseUser user = myAuth.getCurrentUser();
+                                            addToSharedPreferences(user);
+                                            Intent intent = new Intent(RegisterActivity.this, UserNameActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(RegisterActivity.this, "Error to save", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else {
+                                    showAlert();
+                                }
                             }
-                        }
-                    });
+                        });
+            }
         }
     }
 

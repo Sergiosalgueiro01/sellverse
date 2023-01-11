@@ -96,4 +96,5 @@
     <string name="min_one_image">There must be at least one image</string>
     <string name="send">Send</string>
     <string name="txtLoading">Loading...</string>
+    <string name="max_length_password">Password must have at least 6 characters</string>
 </resources>
